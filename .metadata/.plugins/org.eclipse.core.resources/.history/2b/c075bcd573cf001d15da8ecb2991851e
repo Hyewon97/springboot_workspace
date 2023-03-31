@@ -1,0 +1,66 @@
+package com.example.demo.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.dto.TodoDTO;
+import com.example.demo.service.TodoService;
+
+@RestController // @Controller + @ResponseBody
+//@Controller // 컨트롤러 추가.. 프론트엔드가 리액트. 값을 json으로 내보내야 함. nextapi를 처리를 해야 함.
+public class TodoController {
+	
+	@Autowired
+	private TodoService todoService;
+	
+	public TodoController() {
+		
+	}
+	
+	// http://localhost:8090/todo/all
+	//@ResponseBody
+	@GetMapping("/todo/all")
+	public List<TodoDTO> getList() throws Exception{
+		return todoService.serach();
+	}
+	
+	// post 방식을 사용해야 한다.
+	// http://localhost:8090/todo
+//	public int postTodo(@RequestBody TodoDTO dto) throws Exception{
+//		int chk = todoService.insert(dto);
+//		return chk;
+//	}
+
+	// 오브젝트로 같으면 아래 엔티티에서 또 선언을 안해줘도 된다.
+	public ResponseEntity<Object> postTodo(@RequestBody TodoDTO dto) throws Exception{
+		int chk = todoService.insert(dto);
+		
+		if(chk>=1) {
+			return new ResponseEntity<Object>(HttpStatus.ok);
+		}else {
+			return new ResponseEntity<Object>(HttpStatus.NOT_ACCEPTABLE);
+			
+		}
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+

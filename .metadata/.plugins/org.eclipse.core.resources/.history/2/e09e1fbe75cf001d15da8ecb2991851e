@@ -1,0 +1,34 @@
+//package com.example.demo.dao;
+//
+//import java.util.List;
+//
+//import org.apache.ibatis.annotations.Mapper;
+//import org.springframework.stereotype.Repository;
+//
+//import com.example.demo.dto.TodoDTO;
+//
+//
+//// 매퍼에 있는 이름을 찾아서 실행한다. 별도의 클래스를 설정하지 않아도 된다.
+//@Mapper
+//@Repository
+//public interface TodoDAO {
+//	public List<TodoDTO> getTodoList() throws Exception;
+//	public int insertTodoList(TodoDTO dto) throws Exception; // id는 시퀀스로 받아오고, ?는 0이고 Todoname만 받아오면 된다.
+//
+//}
+
+package com.example.demo.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
+
+import com.example.demo.dto.TodoDTO;
+
+@Mapper //mapper와 연동해서 사용하기 위해
+@Repository
+public interface TodoDAO {
+   public List<TodoDTO> getTodoList() throws Exception; //getTodoList 이름으로 mapper에서 찾아올거라서 class 따로 필요없음
+   public int insertTodoList(TodoDTO dto) throws Exception; //실제 insert할 때는 TodoDTO dto 말고, todoname만 받아오면됨 이렇게 안받아와도 됨
+}

@@ -1,0 +1,18 @@
+package com.example.demo;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotaion.@RequestMapping;
+import org.springframework.stereotype.Controller;
+
+
+
+@Controller
+public class DemoController {
+	@ResponseBody
+	@RequestMapping("/")
+	public String home() {
+		System.out.println("Hello boot");
+		return "Hello Boot";
+	}
+	
+}

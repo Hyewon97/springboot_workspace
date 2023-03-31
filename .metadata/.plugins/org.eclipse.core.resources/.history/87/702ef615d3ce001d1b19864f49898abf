@@ -1,0 +1,11 @@
+package com.example.demo;
+
+public class DemoController {
+	@ResponseBody
+	@RequestMapping("/")
+	public String home() {
+		System.out.println("Hello boot");
+		return "Hello Boot";
+	}
+	
+}

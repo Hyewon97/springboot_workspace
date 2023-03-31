@@ -1,0 +1,11 @@
+package com.example.demo;
+
+@No
+public class MemDTO {
+	private String name;
+	private int age;
+	private String loc;
+	
+	
+
+}
