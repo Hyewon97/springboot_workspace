@@ -65,6 +65,8 @@ public class BoardController {
 	@GetMapping("/board/list/{currentPage}") // 페이지를 호출할 때,
 	public Map<String, Object> listExecute(@PathVariable("currentPage") int currentPage, PageDTO pv) {
 		Map<String, Object> map = new HashMap<>(); // 뭐가 같으면? 생성할 때 안해줘도 된다.
+		System.out.println("pv : " + pv.getCurrentPage()); //currentPage값 출력
+		
 		int totalRecord = boardService.countProcess();
 		if (totalRecord >= 1) { // 이 조건에 만족하는 애가 있으면 페이징 처리를 해야한다.
 //			if (pv.getCurrentPage() == 0)
@@ -95,14 +97,24 @@ public class BoardController {
 		// 1. 첨부파일 처리하기, 현재 멀티파일에 값이 있는지 없는지 확인하기. 첨부파일 유뮤 체크
 		MultipartFile file = dto.getFilename();
 
+		//System.out.println("file : " + file.getOriginalFilename()); //첨부파일명 출력
+		
+		//getMembersDTO()가 NULL값이기 때문에 memberName을 가져올수가 없다.
+		//System.out.println(dto.getMembersDTO().getMemberName());
+		
+		//(FileUpload.java) 동일한 첨부파일을 저장할 경우 중복이 되면 안되기 때문에 파일의 앞에 난수를 발생하여 저장하도록 한다.
+		
+
 		// 첨부파일이 비어있지 않으면.. 파일 첨부가 있으면
-		if (!file.isEmpty()) {
+		if(file!=null && !file.isEmpty()) {
 			UUID random = FileUpload.saveCopyFile(file, filePath);
-			dto.setUpload(random + "_" + file.getOriginalFilename());
+			dto.setUpload(random + "_"  + file.getOriginalFilename());;
 		}
 
 		dto.setIp(req.getRemoteAddr()); // 클라이언트에 ip주소를 저장한다.
 
+		//session에 있는 Email값////////////////////////////////////////
+		
 		// 본문 값드을 나오기 위해서.. 이거 안적으면 null로 저장이 된다. 아니 근데 sql에서는 본문 값이 저장되긴 하던데???
 		// write로 넘어오면.. 뭐가 안맞다고.. 뭐가 안맞죠
 		// AuthInfo authInfo = (AuthInfo)session.getAttribute("authInfo");
@@ -121,7 +133,7 @@ public class BoardController {
 		}
 
 		// return "redirect:/board/list.do";
-	}
+	} //end writeProExecute()
 
 	@GetMapping("/board/view/{num}")
 	public BoardDTO viewExecute(@PathVariable("num") int num) {
@@ -132,17 +144,16 @@ public class BoardController {
 	@PutMapping("/board/update")
 	public void updateExecute(BoardDTO dto, HttpServletRequest request) throws IllegalStateException, IOException {
 		MultipartFile file = dto.getFilename();
-		if (!file.isEmpty()) {
+		if(file!=null && !file.isEmpty()) {
 			UUID random = FileUpload.saveCopyFile(file, filePath);
 			dto.setUpload(random + "_" + file.getOriginalFilename());
-			// C:\\download\\temp 경로에 첨부파일 저장
+			//C:\\download\\temp 경로에 첨부파일 저장
 			file.transferTo(new File(random + "_" + file.getOriginalFilename()));
-
 		}
 
 		boardService.updateProcess(dto, filePath);
 
-	}
+	} //end updateExecute()
 
 	// 삭제
 	@DeleteMapping("/board/delete/{num}")
@@ -172,7 +183,6 @@ public class BoardController {
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename="+str+";")
 				.body(resource);
 
-	
 
-	}
+	}//end downloadExecute()
 } // end class
