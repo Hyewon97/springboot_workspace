@@ -80,6 +80,9 @@ public class BoardController {
 			map.put("pv", this.pdto);
 
 		}
+		
+		
+		
 		return map;
 	} // end listExecute()
 

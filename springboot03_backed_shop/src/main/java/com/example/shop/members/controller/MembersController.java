@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,6 +47,13 @@ public class MembersController {
 			AuthInfo authInfo = membersService.addMemberProcess(membersDTO);
 			return null;
 		}
+		
+	
+	// 회원가입 수정
+	@PutMapping("/member/updateMember")
+	public void updateMemberExecute(MembersDTO dto) {
+		
+	}
 		
 
 } // end class
