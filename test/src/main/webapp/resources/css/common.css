@@ -1,0 +1,634 @@
+@charset "UTF-8";
+/* font list */
+@font-face {
+  font-family: 'neo_l';
+  font-display: auto;
+  font-weight: 400;
+  src: url('/myapp/resources/assets/font/NanumSquareNeoOTF-aLt.otf') format('OpenType');
+}
+@font-face {
+  font-family: 'neo_r';
+  font-display: auto;
+  font-weight: 500;
+  src: url('/myapp/resources/assets/font/NanumSquareNeoOTF-bRg.otf') format('OpenType');
+}
+@font-face {
+  font-family: 'neo_b';
+  font-display: auto;
+  font-weight: 600;
+  src: url('/myapp/resources/assets/font/NanumSquareNeoOTF-cBd.otf') format('OpenType');
+}
+@font-face {
+  font-family: 'neo_eb';
+  font-display: auto;
+  font-weight: 700;
+  src: url('/myapp/resources/assets/font/NanumSquareNeoOTF-dEb.otf') format('OpenType');
+}
+@font-face {
+  font-family: 'neo_hb';
+  font-display: auto;
+  font-weight: 800;
+  src: url('/myapp/resources/assets/font/NanumSquareNeoOTF-eHv.otf') format('OpenType');
+}
+
+/* css reset */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'neo_r';
+  font-size: 16px;
+  color: #141414;
+  transition: 0.3s;
+}
+
+html,
+body {
+  width: 100%;
+  height: auto;
+
+  background-color: #ffffff;
+}
+
+body::-webkit-scrollbar {
+  width: 20px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #63584577;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+
+body::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+a,
+a:link,
+a:hover,
+a:active,
+a:visited {
+  color: #141414;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+ul,
+ul li {
+  list-style: none;
+}
+
+button,
+button:focus {
+  border: 0;
+  background-color: #ffffff;
+  outline: 0;
+  cursor: pointer;
+}
+
+.wrap {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-width: 1600px;
+  min-height: calc(100% - 120px);
+}
+
+/* mob menu ani */
+.menu-trigger {
+  display: none;
+}
+
+/* pc 로그인_회원가입 영역 */
+.sign_area_pc {
+  width: 100%;
+  height: auto;
+  background-color: #dddddd;
+}
+
+.sign_area_pc p {
+  width: 1400px;
+  height: auto;
+  font-family: 'neo_r';
+  font-size: 16px;
+  color: #666666;
+  text-align: right;
+  padding: 12px 0 12px 0;
+  margin: 0 auto;
+}
+
+.sign_area_pc p span {
+  font-family: 'neo_r';
+  font-size: 14px;
+  color: #666666;
+  text-align: right;
+  margin: 0 20px 0 20px;
+}
+
+.sign_area_pc p a {
+  font-family: 'neo_r';
+  font-size: 16px;
+  color: #666666;
+  text-align: right;
+}
+
+.sign_area_mob {
+  display: none;
+}
+
+/* pc nav */
+.nav_area {
+  position: sticky;
+  top: 0px;
+  width: 100%;
+  height: 80px;
+  background-color: #ffffff;
+  z-index: 1000;
+  box-shadow: 0 8px 8px -4px #00000022;
+}
+
+.nav_area .inner {
+  width: 1400px;
+  height: 80px;
+  margin: 0 auto;
+  clear: both;
+}
+
+.nav_area .inner > a {
+  height: 80px;
+  display: inline-block;
+}
+
+.nav_area .inner > a .logo {
+  height: 80px;
+}
+
+.nav_area .inner ul {
+  float: right;
+}
+
+.nav_area .inner ul li {
+  float: left;
+  margin-left: 80px;
+}
+
+.nav_area .inner ul li > a {
+  height: 80px;
+  line-height: 80px;
+  font-family: 'neo_b';
+  font-size: 18px;
+  color: #666666;
+  text-align: right;
+}
+
+.nav_area .inner ul li > a:hover,
+.nav_area .inner ul li > a.active {
+  font-family: 'neo_eb';
+  color: #141414;
+}
+
+.sign_area_mob {
+  display: none;
+}
+
+/* footer */
+.footer_area {
+  width: 100%;
+  height: auto;
+  background-color: #dddddd;
+  padding: 60px 0 40px 0;
+}
+
+.footer_area .inner {
+  width: 1400px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.footer_area .inner p,
+.footer_area .inner p span {
+  font-family: 'neo_r';
+  font-size: 18px;
+  color: #666666;
+  margin-bottom: 20px;
+}
+
+.footer_area .inner p span {
+  margin-left: 20px;
+}
+
+.footer_area .inner p br {
+  display: none;
+}
+
+/* popup */
+
+.popup_back,
+.del_popup_back {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3000;
+  background-color: #00000055;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.popup_back.on,
+.del_popup_back.on {
+  display: block;
+}
+
+.popup_back .popup,
+.del_popup_back .del_popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  height: 250px;
+  box-sizing: border-box;
+  margin-top: -125px;
+  margin-left: -250px;
+  background-color: #fff;
+  padding: 20px;
+}
+
+.popup_back .popup p,
+.del_popup_back .del_popup p {
+  color: #141414;
+  font-size: 18px;
+  font-family: 'neo_b';
+  width: 100%;
+  height: 150px;
+  text-align: center;
+  line-height: 150px;
+}
+
+.popup_back .popup button,
+.del_popup_back .del_popup button,
+.inner_userdel_btn {
+  width: 100%;
+  height: 60px;
+  background-color: #988e7e;
+  color: #fff;
+  font-size: 18px;
+  font-family: 'neo_eb';
+}
+  
+  .inner_userdel_btn {
+  	line-height: 58px;
+  }
+
+/* 서브페이지 템플릿 */
+
+.subpage_wrap {
+  width: 100%;
+  height: auto;
+  min-height: 1000px;
+  /* background-color: #ffdada; */
+  padding: 80px 0 240px 0;
+}
+
+.subpage_wrap .inner {
+  width: 1200px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.subpage_wrap .inner h2 {
+  font-size: 34px;
+  font-family: 'neo_eb';
+  color: #635845;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.subpage_wrap .inner .contents {
+  width: 100%;
+  height: auto;
+}
+
+.pagination {
+  width: fit-content;
+  height: auto;
+  overflow: hidden;
+  margin: auto;
+  margin-top: 60px;
+}
+
+.pagination li {
+  width: 24px;
+  height: 24px;
+  float: left;
+  text-align: center;
+  margin: 5px;
+  border-radius: 12px;
+}
+
+.pagination li a {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.pagination li img {
+  width: 24px;
+  height: 24px;
+}
+
+.pagination li {
+  line-height: 21px;
+}
+
+.pagination span {
+  display: none;
+}
+
+.page-item.active {
+  background-color: #eee;
+}
+
+@media (max-width: 700px) {
+  .wrap {
+    min-width: 0;
+  }
+
+  /* pc 로그인_회원가입 영역 none */
+  .sign_area_pc {
+    display: none;
+  }
+
+  .sign_area_mob {
+    display: block;
+  }
+
+  /* mob nav */
+  .nav_area {
+    height: 60px;
+  }
+
+  .nav_area .inner {
+    width: 100%;
+    height: 60px;
+  }
+
+  .nav_area .inner > * {
+    float: left;
+  }
+
+  .nav_area .inner > a {
+    height: 60px;
+    display: block;
+    margin-left: 15px;
+  }
+
+  .nav_area .inner > a .logo {
+    height: 60px;
+  }
+
+  .nav_area .inner ul {
+    width: 100%;
+    height: 0;
+    float: none;
+    position: absolute;
+    top: 60px;
+    background-color: #988e7e;
+    border-radius: 0 0 20px 20px;
+    overflow: hidden;
+  }
+
+  .nav_area .inner ul.active {
+    height: 348px;
+    box-shadow: 0 8px 8px -2px #00000033;
+  }
+
+  .nav_area .inner ul li {
+    float: none;
+    margin: 0;
+    text-align: center;
+    background-color: #eeeeee;
+  }
+
+  .nav_area .inner ul li > a {
+    height: 60px;
+    line-height: 60px;
+    font-size: 16px;
+    color: #666666;
+    text-align: center;
+  }
+
+  .nav_area .inner ul li > a:hover {
+    font-family: 'neo_eb';
+    color: #141414;
+  }
+
+  .nav_area .inner ul li:nth-of-type(5) {
+    border-radius: 0 0 20px 20px;
+  }
+
+  .sign_area_mob {
+    display: block;
+  }
+
+  .nav_area .inner ul .sign_area_mob {
+    height: auto;
+    padding: 15px 0 15px 0;
+    background-color: #988e7e;
+    border-radius: 0 0 20px 20px;
+  }
+
+  .nav_area .inner ul .sign_area_mob > p {
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    line-height: 18px;
+  }
+
+  .nav_area .inner ul .sign_area_mob a {
+    display: inline-block;
+    font-size: 14px;
+    color: #fff;
+  }
+
+  .nav_area .inner ul .sign_area_mob span {
+    margin: 0 20px 0 20px;
+    font-size: 13px;
+    color: #fff;
+  }
+
+  /* menu ani */
+  .menu-trigger {
+    margin: 15px 20px;
+    float: right !important;
+  }
+
+  .menu-trigger,
+  .menu-trigger span {
+    display: inline-block;
+    transition: all 0.4s;
+    box-sizing: border-box;
+  }
+
+  .menu-trigger {
+    position: relative;
+    width: 34px;
+    height: 30px;
+    display: block;
+  }
+
+  .menu-trigger span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #988e7e;
+    border-radius: 2px;
+  }
+
+  .menu-trigger span:nth-of-type(1) {
+    top: 0;
+  }
+
+  .menu-trigger span:nth-of-type(2) {
+    top: 13px;
+  }
+
+  .menu-trigger span:nth-of-type(3) {
+    bottom: 0;
+  }
+
+  .menu-trigger.active span:nth-of-type(1) {
+    -webkit-transform: translateY (14px) rotate (-45deg);
+    transform: translateY(14px) rotate(-45deg);
+  }
+
+  .menu-trigger.active span:nth-of-type(2) {
+    opacity: 0;
+  }
+
+  .menu-trigger.active span:nth-of-type(3) {
+    -webkit-transform: translateY(-12px) rotate(45deg);
+    transform: translateY(-12px) rotate(45deg);
+  }
+
+  /* footer */
+  .footer_area {
+    width: calc(100% - 40px);
+    padding: 40px 20px 20px 20px;
+  }
+
+  .footer_area .inner {
+    width: 100%;
+  }
+
+  .footer_area .inner p,
+  .footer_area .inner p span {
+    line-height: 25px;
+    text-align: center;
+    font-size: 11px;
+    margin-bottom: 15px;
+  }
+
+  .footer_area .inner p span {
+    margin-left: 20px;
+  }
+
+  .footer_area .inner p br {
+    display: block;
+  }
+
+  .footer_area .inner p span:first-of-type {
+    margin-left: 0;
+  }
+
+  /* popup */
+
+  .popup_back .popup,
+  .del_popup_back .del_popup {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    width: calc(100% - 30px);
+    height: auto;
+    margin-top: 0;
+    margin-left: 0;
+    padding: 20px;
+    margin: 15px;
+  }
+
+  .popup_back .popup p,
+  .del_popup_back .del_popup p {
+    height: auto;
+    font-size: 14px;
+    line-height: 25px;
+    padding: 40px 0;
+  }
+
+  .popup_back .popup button,
+  .del_popup_back .del_popup button,
+.inner_userdel_btn {
+    height: 40px;
+    font-size: 14px;
+  }
+  
+  .inner_userdel_btn {
+  	line-height: 38px;
+  }
+
+  /* 서브페이지 템플릿 */
+
+  .subpage_wrap {
+    min-height: 0;
+    padding: 60px 15px;
+    box-sizing: border-box;
+  }
+
+  .subpage_wrap .inner {
+    width: 100%;
+  }
+
+  .subpage_wrap .inner h2 {
+    font-size: 21px;
+    margin-bottom: 30px;
+  }
+  
+  .pagination {
+    width: fit-content;
+    height: auto;
+    overflow: hidden;
+    margin: auto;
+    margin-top: 40px;
+  }
+
+  .pagination li {
+    width: 20px;
+    height: 20px;
+    float: left;
+    text-align: center;
+    margin: 2px;
+    border-radius: 10px;
+  }
+
+  .pagination li a {
+    font-size: 11px;
+    font-weight: bold;
+  }
+
+  .pagination li img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .pagination li {
+    line-height: 15px;
+  }
+
+  .pagination span {
+    display: none;
+  }
+
+  .page-item.active {
+    background-color: #eee;
+  }
+}

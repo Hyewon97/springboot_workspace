@@ -1,0 +1,423 @@
+@charset "UTF-8";
+/* my area */
+
+.my_tab_cont_1,
+.my_tab_cont_2,
+.my_tab_cont_3,
+.my_tab_cont_4 {
+  width: 100%;
+  height: auto;
+  display: none;
+}
+
+.my_tab_cont_1.active,
+.my_tab_cont_2.active,
+.my_tab_cont_3.active,
+.my_tab_cont_4.active {
+  display: block;
+}
+
+.my_area .books_tab {
+  margin-bottom: 60px;
+  font-family: 'neo_eb';
+  font-size: 21px;
+  color: #999;
+  text-align: center;
+}
+
+.my_area .books_tab > a {
+  font-family: 'neo_eb';
+  font-size: 21px;
+  color: #999;
+  text-align: center;
+}
+
+.my_area .books_tab > a.active {
+  color: #635845;
+}
+
+.my_area .books_tab > br {
+  display: none;
+}
+
+/* 가까운 도서관 */
+
+.map_area {
+  width: 100%;
+  height: 500px;
+  border-radius: 10px;
+  background-color: #d4cdc2;
+  margin-bottom: 60px;
+}
+
+.map_table {
+  width: 100%;
+  height: auto;
+}
+
+.table_v1 {
+  width: auto;
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table_v1 > thead {
+  background-color: #d4cdc2;
+}
+
+.table_v1 > thead > tr > th {
+  padding: 20px 15px;
+  color: #635845;
+  font-size: 18px;
+}
+
+.table_v1 > tbody > tr > td,
+.table_v1 > thead > tr > th {
+  text-align: center;
+  border-bottom: 2px solid #d4cdc2;
+  vertical-align: middle;
+}
+
+.table_v1 > tbody > tr > td {
+  border-bottom: 2px solid #d4cdc2;
+  padding: 20px 15px;
+  word-break: break-all;
+  font-size: 16px;
+}
+
+.table_v1 > tbody > tr > td > a {
+  font-family: 'neo_b';
+  font-size: 16px;
+  color: #635845;
+}
+
+.table_v1 > tbody > tr > td > a:hover {
+  font-family: 'neo_eb';
+}
+
+.map_nodata {
+  width: 100%;
+  height: auto;
+  padding: 160px 0;
+  text-align: center;
+  font-family: 'neo_eb';
+  font-size: 24px;
+  line-height: 40px;
+  color: #988e7e;
+}
+
+/* 도서관 이용 이력 */
+
+.my_tab_cont_2 > h4 {
+  width: 100%;
+  font-family: 'neo_eb';
+  font-size: 21px;
+  color: #635845;
+  padding-bottom: 20px;
+  margin-top: 40px;
+}
+
+.ing_record {
+  width: 100%;
+  height: auto;
+  padding: 20px;
+  margin-bottom: 60px;
+  background-color: #ebe6dd;
+  box-sizing: border-box;
+  display: inline-block;
+}
+
+.ing_record .no_record {
+  font-family: 'neo_eb';
+  font-size: 24px;
+  color: #63584588;
+  width: 100%;
+  padding: 120px 0;
+  text-align: center;
+}
+
+.ing_record > .record {
+  float: left;
+  width: calc((100% - 60px) / 4);
+  height: auto;
+  background-color: #fff;
+  margin-right: 20px;
+  box-sizing: border-box;
+  padding: 15px;
+}
+
+.ing_record > .record:last-of-type {
+  margin-right: 0;
+}
+
+.ing_record > .record > h4 > a {
+  width: 100%;
+  height: 50px;
+  font-size: 18px;
+  line-height: 25px;
+  margin-bottom: 40px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  color: #635845;
+}
+
+.ing_record > .record > ul > li {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.ing_record > .record > ul > li span {
+  font-size: 16px;
+  float: right;
+}
+
+.ing_record > .record > .record_btn {
+  width: 100%;
+  height: auto;
+  display: inline-block;
+}
+
+.ing_record > .record > .record_btn button {
+  width: 100%;
+  height: auto;
+  padding: 15px 0;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  background-color: #635845;
+  margin-top: 20px;
+  float: left;
+}
+
+.ing_record > .record > .record_btn .record_btn_2 {
+  width: calc(50% - 5px);
+}
+
+.ing_record > .record > .record_btn form:first-of-type .record_btn_2 {
+  margin-right: 10px;
+}
+
+.ing_record > .record > .record_btn .record_btn_color {
+  background-color: #d4cdc2;
+  color: #635845;
+}
+
+/* 반납도서 */
+
+.user_record_table {
+  width: 100%;
+  height: auto;
+  overflow-x: auto;
+}
+
+.user_record_table::-webkit-scrollbar {
+  height: 10px;
+}
+
+.user_record_table::-webkit-scrollbar-thumb {
+  background-color: #63584577;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+
+.user_record_table::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+.record_table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.record_table > thead {
+  background-color: #d4cdc2;
+}
+
+.record_table > thead > tr > th {
+  padding: 20px 15px;
+  color: #635845;
+  font-size: 18px;
+}
+
+.record_table > tbody > tr > td,
+.record_table > thead > tr > th {
+  text-align: center;
+  border-bottom: 2px solid #d4cdc2;
+  vertical-align: middle;
+}
+
+.record_table > tbody > tr > td {
+  border-bottom: 2px solid #d4cdc2;
+  padding: 20px 15px;
+  word-break: break-all;
+  font-size: 16px;
+}
+
+.record_table > thead > tr > th:nth-of-type(1),
+.record_table > thead > tr > th:nth-of-type(2),
+.record_table > tbody > tr > td:nth-of-type(1),
+.record_table > tbody > tr > td:nth-of-type(2) {
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.record_table > tbody > tr > td[colspan='4'] {
+  text-align: center;
+  padding: 160px 0;
+  font-family: 'neo_eb';
+  font-size: 24px;
+  line-height: 40px;
+  color: #988e7e;
+}
+
+.record_table > tbody > tr > td > a {
+  font-family: 'neo_b';
+  font-size: 16px;
+  color: #635845;
+}
+
+.record_table > tbody > tr > td > a:hover {
+  font-family: 'neo_eb';
+}
+
+@media (max-width: 700px) {
+  .my_area .books_tab {
+    margin-bottom: 30px;
+    font-size: 14px;
+    line-height: 30px;
+  }
+
+  .my_area .books_tab > a {
+    font-size: 14px;
+  }
+
+  .my_area .books_tab > br {
+    display: block;
+  }
+
+  .my_area .books_tab > span:nth-of-type(2) {
+    display: none;
+  }
+
+  /* 가까운 도서관 */
+
+  .map_area {
+    height: 300px;
+    margin-bottom: 30px;
+  }
+
+  .table_v1 > thead > tr > th {
+    padding: 15px 10px;
+    font-size: 14px;
+  }
+
+  .table_v1 > thead > tr > th:nth-of-type(1),
+  .table_v1 > thead > tr > th:nth-of-type(3) {
+    display: none;
+  }
+
+  .table_v1 > tbody > tr > td {
+    padding: 15px 10px;
+    font-size: 14px;
+  }
+
+  .table_v1 > tbody > tr > td:nth-of-type(1),
+  .table_v1 > tbody > tr > td:nth-of-type(3) {
+    display: none;
+  }
+
+  .table_v1 > tbody > tr > td > a {
+    font-size: 14px;
+  }
+
+  .map_nodata {
+    padding: 120px 0;
+    font-size: 14px;
+    line-height: 40px;
+  }
+
+  /* 도서관 이용 이력 */
+
+  .my_tab_cont_2 > h4 {
+    font-size: 16px;
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  .ing_record {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 30px;
+  }
+
+  .ing_record .no_record {
+    font-size: 16px;
+    padding: 120px 0;
+  }
+
+  .ing_record > .record {
+    width: 100%;
+    margin-right: 0;
+    padding: 15px;
+    margin-bottom: 10px;
+  }
+
+  .ing_record > .record:last-of-type {
+    margin-bottom: 0px;
+  }
+
+  .ing_record > .record > h4 > a {
+    height: 45px;
+    font-size: 16px;
+    line-height: 25px;
+    margin-bottom: 30px;
+  }
+
+  .ing_record > .record > ul > li {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .ing_record > .record > ul > li span {
+    font-size: 14px;
+  }
+
+  .ing_record > .record > .record_btn button {
+    padding: 10px 0;
+    font-size: 14px;
+    margin-top: 15px;
+  }
+
+  /* 반납도서 */
+  .record_table {
+    min-width: max-content;
+  }
+
+  .record_table > thead > tr > th {
+    padding: 15px 10px;
+    font-size: 14px;
+  }
+
+  .record_table > tbody > tr > td {
+    padding: 15px 10px;
+    font-size: 14px;
+  }
+
+  .record_table > tbody > tr > td > a {
+    font-size: 14px;
+  }
+
+  .record_table > tbody > tr > td[colspan='4'] {
+    padding: 120px 0;
+    font-size: 14px;
+    line-height: 40px;
+  }
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="userRequest">
+
+	<select id="count" parameterType="String" resultType="int">
+		SELECT count(*)
+		FROM request_booklist
+		WHERE user_keynum = #{user_keynum} 
+	</select>
+	
+	<insert id="insert" parameterType="user.request.dto.UserRequestDTO">
+	    INSERT INTO REQUEST_BOOKLIST (REQUEST_KEYNUM, ISBN, title, AUTHOR, USER_keynum, REQUEST_STATE, REQUEST_TEXT, REQUEST_DATE, REF_DATE)
+		VALUES(REQUEST_BOOKLIST_SEQ.nextval, #{isbn}, #{title},#{author},#{user_keynum},'',#{request_text}, sysdate,'')
+	</insert>
+
+	<select id="allList" parameterType="user.request.dto.PageDTO" resultType="user.request.dto.UserRequestDTO">
+		SELECT y.*
+		FROM(
+			SELECT rownum as rm, x.*
+			FROM(
+				SELECT *
+				FROM request_booklist
+				WHERE user_keynum = #{user_keynum}
+				ORDER BY request_keynum desc
+			)x
+		)y
+		WHERE y.rm BETWEEN #{startRow} AND #{endRow}
+	</select>
+
+
+
+</mapper>

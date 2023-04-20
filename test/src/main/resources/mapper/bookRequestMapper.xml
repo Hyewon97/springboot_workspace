@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bookrequest">
+
+	<select id="count" resultType="int">
+		SELECT count(*) FROM request_booklist
+	</select>
+
+   <select id="requestList" resultType="admin.bookrequest.dto.BookRequestDTO">
+      SELECT y.*
+      FROM(SELECT rownum as rm, x.*
+         FROM(SELECT a.*, b.user_id
+              FROM request_booklist a, user_data b
+              WHERE a.user_keynum = b.user_keynum
+              ORDER BY request_keynum desc)x)y
+      WHERE y.rm BETWEEN #{startRow} AND #{endRow}
+   </select>
+	
+	<select id="searchCount" parameterType="map" resultType="int">
+	  SELECT count(*)
+	  FROM(SELECT rownum as rm, x.*
+			FROM (SELECT * FROM request_booklist
+		      <if test="searchword != null">
+		         <if test="option eq 'title'">
+		            WHERE title like '%'||#{searchword}||'%'
+		         </if>
+		         <if test="option eq 'isbn'">
+		            WHERE user_id LIKE '%'||#{searchword}||'%'
+		         </if>
+		      </if>
+      			  ) x
+      		) y
+	</select>
+	
+   <select id="searchList" parameterType="admin.bookrequest.dto.PageDTO" resultType="admin.bookrequest.dto.BookRequestDTO">
+        SELECT z.*
+        FROM(SELECT rownum as rm, y.*
+           FROM(SELECT x.*
+            FROM(SELECT a.*, b.user_id
+                 FROM request_booklist a, user_data b
+                 WHERE a.user_keynum = b.user_keynum
+                 ORDER BY request_keynum desc
+                 )x
+            <if test="searchword != null">
+               <if test="option eq 'title'">
+            WHERE title LIKE '%'||#{searchword}||'%'
+               </if>
+               <if test="option eq 'user_id'">
+            WHERE user_id LIKE '%'||#{searchword}||'%'
+               </if>
+            </if>
+            )y
+         )z
+         WHERE z.rm BETWEEN #{startRow} AND #{endRow}
+   </select>
+	
+	<!-- ///////////////////////////////////////////////////////////////////////////////// -->
+	<update id= "reject" parameterType="int">
+		UPDATE REQUEST_BOOKLIST
+		SET request_state='N', ref_date=sysdate
+		WHERE request_keynum=#{request_keynum}
+	</update>
+	
+	<update id= "accept" parameterType="int">
+		UPDATE REQUEST_BOOKLIST
+		SET request_state='Y', ref_date=sysdate
+		WHERE request_keynum=#{request_keynum}
+	</update>
+
+	<insert id="insert" parameterType="admin.bookrequest.dto.BookRequestDTO">
+	    INSERT INTO booklist (book_keynum, isbn, title, author, publisher, pub_date, contents, thumbnail, receive_date, category_s, book_category, loan_state, borrow_state)
+	    SELECT booklist_book_keynum_seq.nextval, #{isbn}, #{title},
+	      <choose>
+	        <when test="author == ''"> '미상'</when>
+	        <otherwise> #{author} </otherwise>
+	      </choose>,
+	      #{publisher}, #{pub_date},
+	      <choose>
+	        <when test="contents == ''"> '도서정보 미제공'</when>
+	        <otherwise> #{contents} </otherwise>
+	      </choose>,
+	      #{thumbnail, jdbcType=VARCHAR},
+	      sysdate,
+	      k.category_s,
+	      k.book_category,
+	      'Y',
+	      'N'
+	    FROM kdc k
+	    WHERE k.category_s = #{category_s}
+	</insert>
+
+</mapper>

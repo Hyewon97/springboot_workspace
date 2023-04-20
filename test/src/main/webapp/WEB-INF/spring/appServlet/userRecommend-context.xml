@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- recommendDaoImp 빈 선언 -->
+	<bean id="userRecommendDao" class="user.my.recommend.dao.UserRecommendDAOImp">
+		<property name ="sqlSession" ref="sqlSession"/>
+	</bean>
+
+	<!-- recommendServiceImp 빈 선언 -->
+	<bean id="userRecommendService" class="user.my.recommend.service.UserRecommendServiceImp">
+		<property name="reDAO" ref="userRecommendDao" />
+	</bean>
+
+	<!-- controller -->
+	<bean class="user.my.recommend.controller.UserRecommendController">
+		<property name="reService" ref="userRecommendService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+
+</beans>

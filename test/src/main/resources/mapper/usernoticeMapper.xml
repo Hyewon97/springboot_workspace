@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="usernotice">
+
+	<select id="count" resultType="int">
+		SELECT count(*) FROM NOTICE_BOARD
+	</select>
+
+	<select id="list" parameterType="user.notice.dto.PageDTO" resultType="user.notice.dto.NoticeDTO">
+		<![CDATA[
+		SELECT b.*
+		FROM(SELECT rownum as rm, a.*
+		    FROM(SELECT *
+		        FROM NOTICE_BOARD a
+		        ORDER BY num desc)a)b
+		WHERE b.rm>=#{startRow} AND b.rm<=#{endRow}
+		]]>
+	</select>
+	
+	<select id="toplist" resultType="user.notice.dto.NoticeDTO">
+		<![CDATA[
+		SELECT y.*
+		FROM(SELECT rownum as rm, x.*
+			FROM(SELECT *
+		        FROM NOTICE_BOARD
+		        ORDER BY num desc)x)y
+		WHERE fix = 'Y'
+		]]>
+	</select>
+	
+	<select id="searchCount" parameterType="map" resultType="int">
+		SELECT count(*)
+		FROM(SELECT rownum as rm, b.*    
+		    FROM(SELECT a.*  
+				FROM(SELECT *
+			        FROM NOTICE_BOARD
+			        ORDER BY num desc
+		            )a
+		       <if test="searchword != null">
+		         <if test="option eq 'title'">
+		            WHERE a.title like '%'||#{searchword}||'%'
+		         </if>
+		         <if test="option eq 'content'">
+		            WHERE a.content LIKE '%'||#{searchword}||'%'
+		         </if>
+		      </if>
+		    )b
+		)c
+	</select>
+	
+	<select id="searchList" parameterType="user.notice.dto.PageDTO" resultType="user.notice.dto.NoticeDTO">
+		SELECT c.*
+		FROM(SELECT rownum as rm, b.*    
+		    FROM(SELECT a.*  
+				FROM(SELECT *
+			        FROM NOTICE_BOARD
+			        ORDER BY num desc
+		            )a
+		       <if test="searchword != null">
+		         <if test="option eq 'title'">
+		            WHERE a.title like '%'||#{searchword}||'%'
+		         </if>
+		         <if test="option eq 'content'">
+		            WHERE a.content LIKE '%'||#{searchword}||'%'
+		         </if>
+		      </if>
+		    )b
+		)c
+      WHERE c.rm BETWEEN #{startRow} AND #{endRow}
+	</select>	
+	
+	<select id="content" parameterType="int" resultType="user.notice.dto.NoticeDTO">
+		SELECT *
+		FROM NOTICE_BOARD 
+		WHERE num=#{num}
+   </select>
+
+	<select id="preNext" parameterType="int" resultType="user.notice.dto.NoticeDTO">
+		SELECT a.* 
+		FROM (SELECT
+		    num, 
+		    lag(num,1) over(order by num) prenum,
+		    lag(title,1) over(order by num) presub,    
+		    lead(num,1) over(order by num) nextnum, 
+		    lead(title,1) over(order by num) nextsub
+		FROM NOTICE_BOARD)a
+		WHERE num=#{num}
+   </select>
+	
+	<update id ="readCount" parameterType="int">
+    	UPDATE NOTICE_BOARD
+    	SET readcount = readcount +1
+    	WHERE num=#{num}
+    </update>
+
+	<select id="getFile" parameterType="int" resultType="string">
+		SELECT upload_file
+		FROM NOTICE_BOARD
+		WHERE num=#{num}
+	</select>
+	
+	<select id="getImg" parameterType="int" resultType="string">
+		SELECT upload_img
+		FROM NOTICE_BOARD
+		WHERE num=#{num}
+	</select>
+	
+	<!-- user main test : 가장 최근 고정글 1개 가져오기 -->
+	<select id="latestOne" resultType="user.notice.dto.NoticeDTO">
+		SELECT a.num, a.title
+		FROM(SELECT rownum as rm, n.*
+			FROM NOTICE_BOARD n
+			WHERE fix='Y'
+			ORDER BY n.num desc)a
+			WHERE rm = 1
+   </select>
+   
+   	<!-- user main test : 최근 게시글 5개 가져오기 -->
+	<select id="latestFive" resultType="user.notice.dto.NoticeDTO">
+		SELECT a.num, a.title, a.reg_date
+		FROM(SELECT rownum as rm, n.*
+			FROM NOTICE_BOARD n
+			ORDER BY n.num desc)a
+        WHERE a.rm BETWEEN 1 AND 5
+   </select>
+</mapper>

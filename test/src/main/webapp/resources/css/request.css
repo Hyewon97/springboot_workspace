@@ -1,0 +1,572 @@
+@charset "UTF-8";
+/* request area */
+.request_tab_cont_1, .request_tab_cont_2 {
+	width: 100%;
+	height: auto;
+	display: none;
+}
+
+.request_tab_cont_1.active, .request_tab_cont_2.active {
+	display: block;
+}
+
+.request_area .books_tab {
+	margin-bottom: 60px;
+	font-family: 'neo_eb';
+	font-size: 21px;
+	color: #999;
+	text-align: center;
+}
+
+.request_area .books_tab>a {
+	font-family: 'neo_eb';
+	font-size: 21px;
+	color: #999;
+	text-align: center;
+}
+
+.request_area .books_tab>a.active {
+	color: #635845;
+}
+
+.request_area .books_tab>a.books_tab_1 {
+	margin-right: 20px;
+}
+
+.request_area .books_tab>a.books_tab_2 {
+	margin-left: 20px;
+}
+
+/*검색*/
+.request_area .books_search_area {
+	width: 100%;
+	height: auto;
+	display: inline-block;
+	box-sizing: border-box;
+	border: 5px solid #d4cdc2;
+	border-radius: 45px;
+	overflow: hidden;
+	padding: 0 40px;
+	margin-bottom: 40px;
+}
+
+.request_area .books_search_area form>* {
+	float: left;
+	box-sizing: border-box;
+	padding: 25px 20px 23px;
+	font-size: 18px;
+	font-family: 'neo_eb';
+	border: 0;
+	height: 80px;
+}
+
+.request_area .books_search_area form>*:focus {
+	outline: none;
+}
+
+.request_area .books_search_area form>select {
+	width: 200px;
+}
+
+.request_area .books_search_area form>input {
+	width: 840px;
+}
+
+.request_area .books_search_area form>button {
+	width: 70px;
+	padding: 15px;
+}
+
+.request_area .books_search_area form>button img {
+	width: 40px;
+}
+
+.request_bookset {
+	width: 100%;
+	height: 500px;
+	background-color: #d4cdc2;
+	border-radius: 10px;
+	box-sizing: border-box;
+	padding: 10px;
+	overflow-y: auto;
+}
+
+.request_bookset::-webkit-scrollbar {
+	width: 10px;
+}
+
+.request_bookset::-webkit-scrollbar-thumb {
+	background-color: #63584577;
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+
+.request_bookset::-webkit-scrollbar-track {
+	border-radius: 10px;
+}
+
+.request_bookset .inner {
+	width: 100%;
+	height: auto;
+	display: inline-block;
+	min-height: 100%;
+}
+
+.request_bookset .inner .request_no {
+	font-family: 'neo_eb';
+	font-size: 34px;
+	color: #988e7e;
+	line-height: 480px;
+	text-align: center;
+}
+
+.request_bookset .inner .request_book {
+	width: calc(50% - 20px);
+	height: auto;
+	padding: 15px;
+	box-sizing: border-box;
+	background-color: #ffffff88;
+	border-radius: 10px;
+	float: left;
+	margin: 10px;
+}
+
+.request_bookset .inner .request_book>* {
+	float: left;
+}
+
+.request_bookset .inner .request_book img {
+	width: 160px;
+	height: 220px;
+	margin-right: 20px;
+}
+
+.request_text {
+	width: calc(100% - 180px);
+}
+
+.request_bookset .inner .request_book h4, .request_bookset .inner .request_book p,
+	.request_bookset .inner .request_book button {
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	word-break: break-all;
+}
+
+.request_bookset .inner .request_book h4 {
+	font-family: 'neo_eb';
+	font-size: 21px;
+	color: #635845;
+	margin-bottom: 20px;
+	margin-top: 10px;
+	height: 22px;
+	line-height: 24px;
+}
+
+.request_bookset .inner .request_book p {
+	font-family: 'neo_r';
+	font-size: 16px;
+	color: #141414;
+	margin-bottom: 10px;
+	height: 16px;
+	line-height: 16px;
+}
+
+.request_bookset .inner .request_book button {
+	margin-top: 37px;
+	height: auto;
+	padding: 15px 0;
+	background-color: unset;
+	border: 1px solid #635845;
+	color: #635845;
+	font-family: 'neo_b';
+	font-size: 18px;
+	box-sizing: border-box;
+}
+
+.request_bookset .inner .request_book button:hover {
+	background-color: #635845;
+	border: 1px solid #635845;
+	color: #ffffff;
+}
+
+/* 폼 */
+.request_form {
+	width: 100%;
+	height: auto;
+	display: inline-block;
+	box-sizing: border-box;
+	margin: 80px 0 0 0;
+}
+
+.request_form>.inner {
+	width: calc(50% - 20px);
+	height: auto;
+	float: left;
+}
+
+.request_form>.inner:first-of-type {
+	margin-right: 40px;
+}
+
+.request_form>.inner>* {
+	float: left;
+}
+
+.request_form>.inner>h4 {
+	width: 100%;
+	font-family: 'neo_b';
+	font-size: 21px;
+	color: #635845;
+	padding-bottom: 20px;
+	border-bottom: 2px solid #988e7e;
+	margin-bottom: 40px;
+}
+
+.request_form>.inner>img {
+	width: 160px;
+	height: auto;
+	margin-right: 30px;
+}
+
+.request_form>.inner>p {
+	width: calc(100% - 190px);
+	font-family: 'neo_b';
+	font-size: 18px;
+	color: #999;
+	text-align: center;
+	line-height: 38px;
+	padding: 60px 0;
+}
+
+.request_form>.inner>ul {
+	width: calc(100% - 190px);
+}
+
+.request_form>.inner>ul>li {
+	font-family: 'neo_b';
+	font-size: 18px;
+	color: #141414;
+	margin-bottom: 10px;
+	width: 100%;
+	display: inline-block;
+	line-height: 30px;
+}
+
+.request_form>.inner>ul>li span {
+	font-family: 'neo_b';
+	font-size: 18px;
+	color: #141414;
+	width: 300px;
+	float: right;
+}
+
+.request_form>.inner>ul>li:nth-of-type(1) {
+	font-size: 21px;
+	color: #635845;
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+
+.request_form>.inner>form {
+	width: 100%;
+}
+
+.request_form>.inner>form>textarea {
+	resize: none;
+	border: 2px solid #988e7e;
+	width: 100%;
+	height: 100px;
+	line-height: 30px;
+	box-sizing: border-box;
+	padding: 10px 15px;
+	font-size: 16px;
+}
+
+.request_form>.inner>form>textarea:focus {
+	outline: 3px solid #ebe6dd;
+}
+
+.request_form>.inner>form>button {
+	width: 100%;
+	margin-top: 30px;
+	height: auto;
+	padding: 15px 0;
+	background-color: #988e7e;
+	color: #fff;
+	font-family: 'neo_b';
+	font-size: 18px;
+	box-sizing: border-box;
+	letter-spacing: 2px;
+}
+
+.request_form>.inner>form>button:hover {
+	background-color: #635845;
+	color: #ffffff;
+}
+
+/* 신청리스트 */
+.request_list_area {
+	width: 100%;
+	height: auto;
+	display: inline-block;
+}
+
+.request_list_area>* {
+	float: left;
+}
+
+.request_list_area dl {
+	width: 100%;
+}
+
+.request_list_area dl>* {
+	box-sizing: border-box;
+	float: left;
+	padding: 20px 15px;
+	font-family: 'neo_r';
+	font-size: 18px;
+	border-bottom: 1px solid #988e7e;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	word-break: break-all;
+}
+
+.request_list_area dl:last-of-type {
+	border-bottom: 2px solid #988e7e;
+}
+
+.request_list_area dl dt {
+	font-family: 'neo_b';
+}
+
+.request_list_area dl *:nth-child(1) {
+	width: 80px;
+	text-align: center;
+}
+
+.request_list_area dl *:nth-child(2) {
+	width: calc(50% - 170px);
+}
+
+.request_list_area dl *:nth-child(3) {
+	width: calc(50% - 260px);
+}
+
+.request_list_area dl *:nth-child(4) {
+	width: 200px;
+	text-align: center;
+}
+
+.request_list_area dl *:nth-child(5) {
+	width: 150px;
+	text-align: center;
+}
+
+.request_list_area dl.request_list_title>* {
+	color: #635845;
+	border-top: 3px solid #988e7e;
+	border-bottom: 1px solid #988e7e;
+}
+
+.request_nodata {
+	width: 100%;
+	height: auto;
+	padding: 160px 0;
+	text-align: center;
+	font-family: 'neo_eb';
+	font-size: 24px;
+	line-height: 40px;
+	color: #988e7e;
+}
+
+.request_add_btn {
+	width: 100%;
+	height: auto;
+	margin-top: 60px;
+	background-color: #988e7e;
+	padding: 15px;
+	font-family: 'neo_b';
+	font-size: 16px;
+	letter-spacing: 3px;
+	color: #fff;
+	border-radius: 10px;
+}
+
+@media ( max-width : 700px) {
+	.request_area .books_tab {
+		margin-bottom: 30px;
+		font-size: 14px;
+	}
+	.request_area .books_tab>a {
+		font-size: 14px;
+	}
+	.request_area .books_tab>a.books_tab_1 {
+		margin-right: 10px;
+	}
+	.request_area .books_tab>a.books_tab_2 {
+		margin-left: 10px;
+	}
+
+	/*검색*/
+	.request_area .books_search_area {
+		border: 3px solid #d4cdc2;
+		border-radius: 0px;
+		padding: 0;
+		margin-bottom: 20px;
+	}
+	.request_area .books_search_area form>* {
+		padding: 15px 10px;
+		font-size: 14px;
+		height: 50px;
+	}
+	.request_area .books_search_area form>select {
+		width: 90px;
+	}
+	.request_area .books_search_area form>input {
+		width: calc(100% - 140px);
+	}
+	.request_area .books_search_area form>button {
+		width: 50px;
+		padding: 13px;
+	}
+	.request_area .books_search_area form>button img {
+		width: 24px;
+	}
+	.request_bookset {
+		height: 400px;
+		padding: 0;
+	}
+	.request_bookset .inner .request_no {
+		font-size: 18px;
+		line-height: 380px;
+	}
+	.request_bookset .inner .request_book {
+		width: calc(100% - 20px);
+		padding: 10px;
+		margin: 10px;
+		box-sizing: border-box;
+	}
+	.request_bookset .inner .request_book img {
+		width: 80px;
+		height: 113px;
+		margin-right: 10px;
+	}
+	.request_text {
+		width: calc(100% - 100px);
+	}
+	.request_bookset .inner .request_book h4 {
+		font-size: 14px;
+		margin-bottom: 10px;
+		margin-top: 5px;
+	}
+	.request_bookset .inner .request_book p {
+		font-size: 12px;
+		margin-bottom: 10px;
+		height: auto;
+		line-height: 12px;
+	}
+	.request_bookset .inner .request_book p:nth-of-type(2) {
+		display: none;
+	}
+	.request_bookset .inner .request_book button {
+		margin-top: 4px;
+		padding: 5px 0;
+		font-size: 14px;
+	}
+
+	/* 폼 */
+	.request_form {
+		margin: 40px 0 0 0;
+	}
+	.request_form>.inner {
+		width: 100%;
+	}
+	.request_form>.inner:first-of-type {
+		margin-right: 0;
+		margin-bottom: 40px;
+	}
+	.request_form>.inner>h4 {
+		font-size: 16px;
+		padding-bottom: 10px;
+		margin-bottom: 20px;
+	}
+	.request_form>.inner>img {
+		width: 60px;
+		margin-right: 20px;
+	}
+	.request_form>.inner>p {
+		width: calc(100% - 80px);
+		font-size: 13px;
+		line-height: 25px;
+		padding: 15px 0;
+	}
+	.request_form>.inner>ul {
+		width: calc(100% - 80px);
+	}
+	.request_form>.inner>ul>li {
+		font-size: 14px;
+		margin-bottom: 0px;
+		line-height: 25px;
+	}
+	.request_form>.inner>ul>li span {
+		font-size: 14px;
+		width: calc(100% - 60px);
+		float: right;
+	}
+	.request_form>.inner>ul>li:nth-of-type(1) {
+		font-size: 14px;
+		margin-top: 0px;
+		margin-bottom: 10px;
+	}
+	.request_form>.inner>form>textarea {
+		line-height: 25px;
+		padding: 10px 15px;
+		font-size: 14px;
+	}
+	.request_form>.inner>form>button {
+		font-size: 14px;
+	}
+
+	/* 신청리스트 */
+	.request_list_area dl>* {
+		padding: 10px 5px;
+		font-size: 13px;
+	}
+	.request_list_area dl *:nth-child(1) {
+		display: none;
+	}
+	.request_list_area dl *:nth-child(2) {
+		width: calc(100% - 180px);
+	}
+	.request_list_area dl *:nth-child(3) {
+		display: none;
+	}
+	.request_list_area dl *:nth-child(4) {
+		width: 100px;
+		text-align: center;
+	}
+	.request_list_area dl *:nth-child(5) {
+		width: 80px;
+		text-align: center;
+	}
+	.request_list_area dl.request_list_title>* {
+		color: #635845;
+		border-top: 3px solid #988e7e;
+		border-bottom: 1px solid #988e7e;
+	}
+	.request_nodata {
+		padding: 120px 0;
+		font-size: 14px;
+		line-height: 40px;
+	}
+	.request_add_btn {
+		width: calc(100% - 40px);
+		margin: 40px 20px 20px 20px;
+		padding: 15px 0;
+		font-size: 13px;
+	}
+}

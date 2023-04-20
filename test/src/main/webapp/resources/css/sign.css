@@ -1,0 +1,361 @@
+@charset "UTF-8";
+
+.tab1, .tab2{
+	display: none;
+}
+
+.tab1.on, .tab2.on{
+	display: block;
+}
+
+
+/* sign area */
+.sign_area {
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: 180px 0;
+  background-color: #f5f5f5;
+}
+
+.sign_area .inner {
+  width: 560px;
+  height: auto;
+  padding: 60px 30px;
+  overflow: hidden;
+  box-sizing: border-box;
+  background-color: #fff;
+  margin: auto;
+  box-shadow: 0 2px 12px 0 #dbdbdb, 0 2px 5px 0 #dbdbdb;
+  border-radius: 3px;
+}
+
+.sign_area .inner > h2 {
+  font-family: 'neo_eb';
+  font-size: 32px;
+  color: #635845;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.sign_area .inner > p {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+/* 로그인 */
+
+.sign_area .inner .login_form > input {
+  width: 100%;
+  height: 48px;
+  border: 1px solid #ddd;
+  color: #666;
+  box-sizing: border-box;
+  padding: 5px 20px;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.sign_area .inner .login_form > input:focus {
+  outline: 2px solid #988e7e;
+}
+
+.sign_area .inner .login_form > p {
+  font-size: 14px;
+  color: #d83333;
+  margin-bottom: 30px;
+  display: none;
+}
+
+.sign_area .inner .login_form > p.on {
+  display: block;
+}
+
+.sign_area .inner .login_form > div {
+  width: 100%;
+  height: auto;
+  display: inline-block;
+}
+
+.sign_area .inner .login_form > div label {
+  font-size: 14px;
+  color: #333;
+}
+
+.sign_area .inner .login_form > div label,
+.sign_area .inner .login_form > div input {
+  float: left;
+  user-select: none;
+  cursor: pointer;
+  line-height: 14px;
+}
+
+.sign_area .inner .login_form > div p {
+  float: right;
+  font-size: 14px;
+}
+
+.sign_area .inner .login_form > div p a {
+  font-size: 16px;
+  margin-left: 10px;
+  color: #635845;
+  font-family: 'neo_eb';
+}
+
+.sign_area .inner .login_form > button {
+  width: 100%;
+  margin-top: 40px;
+  font-size: 18px;
+  background-color: #988e7e;
+  color: #fff;
+  padding: 15px 0;
+  font-family: 'neo_b';
+  letter-spacing: 3px;
+}
+
+/* 회원가입 */
+
+.sign_area .inner .signup_form ul li {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.sign_area .inner .signup_form ul li > * {
+  float: left;
+}
+
+.sign_area .inner .signup_form ul li h4 {
+  font-family: 'neo_b';
+  width: 100%;
+  height: auto;
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.sign_area .inner .signup_form ul li input {
+  width: 100%;
+  height: 48px;
+  border: 1px solid #ddd;
+  color: #666;
+  box-sizing: border-box;
+  padding: 5px 20px;
+  font-size: 14px;
+}
+
+.sign_area .inner .signup_form ul li input:focus {
+  outline: 2px solid #988e7e;
+}
+
+.sign_area .inner .signup_form ul li p {
+  width: 100%;
+  font-size: 14px;
+  color: #d83333;
+  display: none;
+  margin-top: 10px;
+}
+
+.sign_area .inner .signup_form ul li p.on {
+  display: block;
+}
+
+.sign_area .inner .signup_form ul .id_input input {
+  width: calc(50% - 5px);
+  margin-right: 10px;
+}
+
+.sign_area .inner .signup_form ul .id_input button {
+  width: calc(50% - 5px);
+  height: 48px;
+  font-size: 16px;
+  box-sizing: border-box;
+  border: 2px solid #988e7e;
+  background-color: #fff;
+  color: #635845;
+  font-family: 'neo_b';
+}
+
+.sign_area .inner .signup_form ul .id_input button:hover {
+  background-color: #ebe6dd;
+}
+
+.sign_area .inner .signup_form ul .addr_input input {
+  margin-bottom: 10px;
+}
+
+.sign_area .inner .signup_form ul .addr_input input:first-of-type {
+  width: calc(50% - 5px);
+  margin-right: 10px;
+}
+
+.sign_area .inner .signup_form ul .addr_input button {
+  width: calc(50% - 5px);
+  height: 48px;
+  font-size: 16px;
+  box-sizing: border-box;
+  border: 2px solid #988e7e;
+  background-color: #fff;
+  color: #635845;
+  font-family: 'neo_b';
+}
+
+.sign_area .inner .signup_form ul .addr_input button:hover {
+  background-color: #ebe6dd;
+}
+
+.sign_area .inner .signup_form ul .addr_input input:read-only {
+  background-color: #eee;
+  cursor: no-drop;
+}
+
+.sign_area .inner .signup_form ul .sex_input button {
+  width: 50%;
+  height: 48px;
+  border: 2px solid #635845;
+  background-color: #fff;
+  color: #635845;
+  font-family: 'neo_b';
+  font-size: 16px;
+  text-align: center;
+  box-sizing: border-box;
+  line-height: 45px;
+  letter-spacing: 3px;
+}
+
+.sign_area .inner .signup_form ul .sex_input button.active {
+  background-color: #635845;
+  color: #fff;
+}
+
+.sign_area .inner .signup_form ul .sex_input label:nth-of-type(1) {
+  border-right: 1px solid #635845;
+}
+
+.sign_area .inner .signup_form ul .sex_input label:nth-of-type(2) {
+  border-left: 1px solid #635845;
+}
+
+.sign_area .inner .signup_form > button {
+  width: 100%;
+  margin-top: 40px;
+  font-size: 18px;
+  background-color: #988e7e;
+  color: #fff;
+  padding: 15px 0;
+  font-family: 'neo_b';
+  letter-spacing: 3px;
+}
+
+@media (max-width: 700px) {
+  /* sign area */
+  .sign_area {
+    width: 100%;
+    height: auto;
+    min-height: 100%;
+    box-sizing: border-box;
+    padding: 80px 15px;
+    background-color: #f5f5f5;
+  }
+
+  .sign_area .inner {
+    width: 100%;
+    padding: 60px 15px;
+  }
+
+  .sign_area .inner > h2 {
+    font-size: 24px;
+  }
+
+  .sign_area .inner > p {
+    font-size: 11px;
+    margin-bottom: 25px;
+  }
+
+  /* 로그인 */
+
+  .sign_area .inner .login_form > input {
+    height: 40px;
+    margin-bottom: 15px;
+  }
+
+  .sign_area .inner .login_form > input:focus {
+    outline: 2px solid #988e7e;
+  }
+
+  .sign_area .inner .login_form > p {
+    font-size: 11px;
+  }
+
+  .sign_area .inner .login_form > div label {
+    font-size: 11px;
+  }
+
+  .sign_area .inner .login_form > div label,
+  .sign_area .inner .login_form > div input {
+    line-height: 13px;
+  }
+
+  .sign_area .inner .login_form > div p {
+    font-size: 11px;
+  }
+
+  .sign_area .inner .login_form > div p a {
+    font-size: 11px;
+  }
+
+  .sign_area .inner .login_form > button {
+    margin-top: 30px;
+    font-size: 14px;
+    padding: 10px 0;
+  }
+
+  /* 회원가입 */
+
+  .sign_area .inner .signup_form ul li h4 {
+    font-size: 13px;
+  }
+
+  .sign_area .inner .signup_form ul li input {
+    height: 40px;
+    padding: 5px 10px;
+    font-size: 13px;
+  }
+
+  .sign_area .inner .signup_form ul li p {
+    font-size: 11px;
+  }
+
+  .sign_area .inner .signup_form ul .id_input input {
+    width: calc(50% - 5px);
+    margin-right: 10px;
+  }
+
+  .sign_area .inner .signup_form ul .id_input button {
+    height: 40px;
+    font-size: 13px;
+  }
+
+  .sign_area .inner .signup_form ul .addr_input button {
+    height: 40px;
+    font-size: 13px;
+  }
+
+  .sign_area .inner .signup_form ul .sex_input button {
+    height: 40px;
+    font-size: 13px;
+    line-height: 38px;
+    letter-spacing: 3px;
+  }
+
+  .sign_area .inner .signup_form > button {
+    margin-top: 40px;
+    font-size: 14px;
+    padding: 10px 0;
+  }
+}

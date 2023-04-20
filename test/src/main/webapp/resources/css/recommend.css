@@ -1,0 +1,275 @@
+@charset "UTF-8";
+/* recommend area */
+
+.subpage_wrap .recommend_area {
+	display: inline-block;
+}
+
+.recommend_area>*, .recommend_book_area>*, .recommend_book>* {
+	float: left;
+}
+
+.recommend_area>h4 {
+	width: 100%;
+	height: auto;
+	font-family: 'neo_b';
+	font-size: 24px;
+	color: #999;
+	margin: 40px 0 60px;
+	text-align: center;
+}
+
+.recommend_area>h4 span {
+	font-family: 'neo_eb';
+	font-size: 24px;
+	color: #635845;
+	max-width: 400px;
+	display: inline-block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	vertical-align: middle;
+}
+
+.recommend_area>h4 br {
+	display: none;
+}
+
+.recommend_book_area {
+	width: 100%;
+	height: auto;
+	margin-bottom: 80px;
+}
+
+.recommend_book {
+	width: calc(( 100% - 120px)/5);
+	height: auto;
+	margin-right: 30px;
+}
+
+.recommend_book:nth-child(5n+0) {
+	margin-right: 0;
+}
+
+.recommend_book a {
+	width: 100%;
+}
+
+.recommend_book img {
+	box-sizing: border-box;
+	border: 10px solid #d4cdc2;
+	width: 100%;
+}
+
+.recommend_book ul {
+	width: 100%;
+	height: auto;
+}
+
+.recommend_book ul li {
+	width: 100%;
+	height: auto;
+	margin-top: 10px;
+	font-family: 'neo_r';
+	font-size: 16px;
+	color: #999;
+}
+
+.recommend_book ul li:last-of-type {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.recommend_book ul li a {
+	width: 100%;
+	display: inline-block;
+	font-family: 'neo_eb';
+	font-size: 21px;
+	color: #635845;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* 리스트 */
+
+.recommend_list_area {
+  width: 100%;
+  height: auto;
+  display: inline-block;
+}
+
+.recommend_list_area > * {
+  float: left;
+}
+
+.recommend_list_area dl {
+  width: 100%;
+}
+
+.recommend_list_area dl:first-of-type {
+  border-top: 3px solid #988e7e;
+  border-bottom: 1px solid #988e7e;
+}
+
+.recommend_list_area dl > * {
+  box-sizing: border-box;
+  float: left;
+  padding: 20px 15px;
+  font-family: 'neo_r';
+  font-size: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+.recommend_list_area dl dd {
+  box-sizing: border-box;
+  height: 58px;
+}
+
+.recommend_list_area dl {
+  border-bottom: 1px solid #988e7e;
+}
+
+.recommend_list_area dl:last-of-type {
+  border-bottom: 3px solid #988e7e;
+}
+
+.recommend_list_area dl dt {
+  font-family: 'neo_b';
+}
+
+.recommend_list_area dl > *:nth-child(1) {
+  width: calc(70% - 150px);
+}
+
+.recommend_list_area dl > *:nth-child(2) {
+  width: 30%;
+}
+
+.recommend_list_area dl > *:nth-child(3) {
+  width: 150px;
+  text-align: right;
+}
+
+.recommend_list_area form {
+  width: 100%;
+}
+
+.recommend_list_area button {
+  text-align: right;
+  font-family: 'neo_b';
+  font-size: 16px;
+  color: #635845;
+}
+
+.recommend_list_area button:hover {
+  font-family: 'neo_eb';
+}
+
+
+@media ( max-width : 700px) {
+	.recommend_area>h4 {
+		font-size: 14px;
+		margin: 0 0 20px 0;
+		line-height: 25px;
+	}
+	.recommend_area>h4 span {
+		font-family: 'neo_eb';
+		font-size: 14px;
+		color: #635845;
+		max-width: 100px;
+		display: inline-block;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		vertical-align: middle;
+	}
+	.recommend_area>h4 br {
+		display: block;
+	}
+	.recommend_book_area {
+		width: 100%;
+		height: auto;
+		margin-bottom: 40px;
+		box-sizing: border-box;
+		padding: 10px;
+		background-color: #ebe6dd;
+		border-radius: 10px;
+	}
+	.recommend_book {
+		width: 100%;
+		margin-right: 0;
+		margin-bottom: 10px;
+		display: flex;
+		align-items: center;
+	}
+	.recommend_book:last-of-type {
+		margin-bottom: 0;
+	}
+	.recommend_book:nth-child(5n+0) {
+		margin-right: 0;
+	}
+	.recommend_book a {
+		width: auto;
+	}
+	.recommend_book img {
+		width: 60px;
+		height: auto;
+		border: 3px solid #d4cdc2;
+		margin-right: 15px;
+	}
+	.recommend_book ul {
+		width: calc(100% - 75px);
+		height: auto;
+		margin-top: 0;
+	}
+	.recommend_book ul li {
+		margin-top: 0px;
+		font-size: 14px;
+	}
+	.recommend_book ul li:last-child {
+		margin-top: 5px;
+	}
+	.recommend_book ul li:last-of-type {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.recommend_book ul li a {
+		font-size: 18px;
+	}
+  /* 리스트 */
+
+  .recommend_list_area dl > * {
+    padding: 10px 5px;
+    font-size: 13px;
+  }
+
+  .recommend_list_area dl dd {
+    height: 40px;
+    line-height: 20px;
+  }
+
+  .recommend_list_area dl dd form {
+    margin-top: -1px;
+  }
+
+  .recommend_list_area dl > *:nth-child(1) {
+    width: calc(100% - 100px);
+  }
+
+  .recommend_list_area dl > *:nth-child(2) {
+    display: none;
+  }
+
+  .recommend_list_area dl > *:nth-child(3) {
+    width: 100px;
+  }
+
+  .recommend_list_area button {
+    font-size: 13px;
+  }
+}

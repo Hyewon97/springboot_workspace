@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="baseLayout"
+		template="/WEB-INF/tiles/layout/baseLayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header"
+			value="/WEB-INF/tiles/common/header.jsp" />
+		<put-attribute name="content" value="" />
+		<put-attribute name="footer"
+			value="/WEB-INF/tiles/common/footer.jsp" />
+	</definition>
+
+	<definition name="" extends="baseLayout">
+		<put-attribute name="title"
+			value="영원한도서관 - eternal library" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/home.jsp" />
+	</definition>
+
+	<definition name="login" extends="baseLayout">
+		<put-attribute name="title" value="로그인 - 영원한도서관" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/login.jsp" />
+	</definition>
+
+	<definition name="signup" extends="baseLayout">
+		<put-attribute name="title" value="회원가입 - 영원한도서관" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/signup.jsp" />
+	</definition>
+
+	<definition name="notice/notice" extends="baseLayout">
+		<put-attribute name="title" value="도서관 소식 - 영원한도서관" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/notice/notice.jsp" />
+	</definition>
+
+	<definition name="notice/view" extends="baseLayout">
+		<put-attribute name="title" value="도서관 소식 - 영원한도서관" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/notice/view.jsp" />
+	</definition>
+
+	<definition name="info" extends="baseLayout">
+		<put-attribute name="title" value="이용안내 - 영원한도서관" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/info.jsp" />
+	</definition>
+
+	<definition name="books" extends="baseLayout">
+		<put-attribute name="title" value="통합도서조회 - 영원한도서관" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/books/list.jsp" />
+	</definition>
+
+	<definition name="books/new" extends="baseLayout">
+		<put-attribute name="title" value="통합도서조회 - 영원한도서관" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/books/new.jsp" />
+	</definition>
+
+	<definition name="books/popular" extends="baseLayout">
+		<put-attribute name="title" value="통합도서조회 - 영원한도서관" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/books/popular.jsp" />
+	</definition>
+
+	<definition name="books/view" extends="baseLayout">
+		<put-attribute name="title" value="통합도서조회 - 영원한도서관" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/books/view.jsp" />
+	</definition>
+
+
+	<definition name="request/request" extends="baseLayout">
+		<put-attribute name="title" value="희망도서신청 - 영원한도서관" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/request/request.jsp" />
+	</definition>
+
+	<definition name="request/list" extends="baseLayout">
+		<put-attribute name="title" value="희망도서신청 - 영원한도서관" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/request/list.jsp" />
+	</definition>
+
+	<definition name="my/user" extends="baseLayout">
+		<put-attribute name="title" value="나의 도서관 - 영원한도서관" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/my/user.jsp" />
+	</definition>
+
+	<definition name="my" extends="baseLayout">
+		<put-attribute name="title" value="나의 도서관 - 회원 정보 관리" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/my/my.jsp" />
+	</definition>
+
+	<definition name="my/record" extends="baseLayout">
+		<put-attribute name="title" value="나의 도서관 - 도서관 이용 이력" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/my/record.jsp" />
+	</definition>
+
+	<definition name="my/recommend" extends="baseLayout">
+		<put-attribute name="title" value="나의 도서관 - 맞춤추천도서" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/my/recommend.jsp" />
+	</definition>
+
+	<definition name="my/map" extends="baseLayout">
+		<put-attribute name="title" value="나의 도서관 - 가까운 도서관" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/my/map.jsp" />
+	</definition>
+
+	<!-- 관리자 -->
+	<definition name="baseLayoutAdmin"
+		template="/WEB-INF/tiles/layout/baseLayoutAdmin.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header"
+			value="/WEB-INF/tiles/common/admin/header.jsp" />
+		<put-attribute name="content" value="" />
+		<put-attribute name="footer"
+			value="/WEB-INF/tiles/common/admin/footer.jsp" />
+	</definition>
+
+	<definition name="admin" extends="baseLayoutAdmin">
+		<put-attribute name="title" value="ADMIN - 영원한도서관" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/home.jsp" />
+	</definition>
+
+	<definition name="admin/user" extends="baseLayoutAdmin">
+		<put-attribute name="title" value="ADMIN - 회원현황" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/user.jsp" />
+	</definition>
+
+	<definition name="admin/admin" extends="baseLayoutAdmin">
+		<put-attribute name="title" value="ADMIN - 관리자현황" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/admin.jsp" />
+	</definition>
+
+	<definition name="admin/notice" extends="baseLayoutAdmin">
+		<put-attribute name="title" value="ADMIN - 공지사항관리" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/notice.jsp" />
+	</definition>
+
+	<definition name="admin/books" extends="baseLayoutAdmin">
+		<put-attribute name="title" value="ADMIN - 도서관리" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/books.jsp" />
+	</definition>
+
+	<definition name="admin/borrow" extends="baseLayoutAdmin">
+		<put-attribute name="title" value="ADMIN - 도서대출관리" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/borrow.jsp" />
+	</definition>
+
+	<definition name="admin/review" extends="baseLayoutAdmin">
+		<put-attribute name="title" value="ADMIN - 도서후기관리" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/review.jsp" />
+	</definition>
+
+	<definition name="admin/request" extends="baseLayoutAdmin">
+		<put-attribute name="title" value="ADMIN - 도서신청관리" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/request.jsp" />
+	</definition>
+
+</tiles-definitions> 

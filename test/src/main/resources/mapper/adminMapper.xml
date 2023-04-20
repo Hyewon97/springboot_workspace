@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="admin">
+	<insert id="addAdmin" parameterType="admin.dto.AdminDTO">
+		INSERT INTO
+		admin_data(admin_keynum,admin_id,
+		admin_password, admin_name)
+		VALUES
+
+		(
+		admin_keynum_seq.nextval,
+		#{admin_id,jdbcType=VARCHAR},
+		#{admin_password,jdbcType=VARCHAR},
+		#{admin_name,jdbcType=VARCHAR}
+		)
+	</insert>
+	<!-- 아이디 값으로 사용자 선택 -->
+	<select id="selectByadmin_id" parameterType="string"
+		resultType="admin.dto.AdminDTO">
+		SELECT *
+		FROM admin_data
+		WHERE admin_id =
+		#{loginId,jdbcType=VARCHAR} AND admin_password=#{loginPw ,
+		jdbcType=VARCHAR}
+		and bigo2='0'
+	</select>
+	<select id="idcheck" parameterType="string" resultType="int">
+		SELECT
+		COUNT(admin_id)
+		FROM admin_data
+		WHERE admin_id =
+		#{admin_id,jdbcType=VARCHAR}
+		and bigo2='0'
+
+	</select>
+	<select id="printUserAll" parameterType="print.dto.PageDTO"
+		resultType="user.dto.UserDTO">
+			<![CDATA[
+		SELECT y.* FROM(
+					SELECT rownum as rm, x.*FROM(
+								SELECT * FROM user_data
+								where bigo='0'
+								)x)y
+		WHERE y.rm BETWEEN #{startRow} AND #{endRow} 
+
+		]]>
+	</select>
+	<select id="printAdminAll" parameterType="print.dto.PageDTO"
+		resultType="admin.dto.AdminDTO">
+			<![CDATA[
+		SELECT y.* FROM(
+					SELECT rownum as rm, x.*FROM(
+								SELECT * FROM admin_data
+								where bigo2='0'
+								)x)y
+		WHERE y.rm BETWEEN #{startRow} AND #{endRow} 
+
+		]]>
+	</select>
+	<select id="countUserAll" resultType="int">
+		select count(*) from
+		user_data
+		where bigo='0'
+	</select>
+	<select id="countAdminAll" resultType="int">
+		select count(*) from
+		admin_data
+		where bigo2='0'
+	</select>
+	<update id="deleteUser" parameterType="string">
+		update user_data set
+		bigo='1' where user_id=#{user_id}
+	</update>
+	<update id="deleteAdmin" parameterType="string">
+		update admin_data set
+		bigo2='1' where admin_id=#{admin_id}
+	</update>
+
+	<select id="searchuser" parameterType="java.util.Map"
+		resultType="user.dto.UserDTO">
+		SELECT y.* FROM(
+		SELECT rownum as rm, x.* FROM (
+		SELECT * FROM user_data
+		<if test="query != null">
+			<if test="option eq 'nmq'">
+				WHERE user_name like '%'||#{query}||'%' and bigo='0'
+			</if>
+			<if test="option eq 'idq'">
+				WHERE user_id LIKE '%'||#{query}||'%' and bigo='0'
+			</if>
+		</if>
+		) x
+		) y
+		WHERE y.rm BETWEEN #{page.startRow} AND
+		#{page.endRow}
+	</select>
+	<select id="searchadmin" parameterType="java.util.Map"
+		resultType="admin.dto.AdminDTO">
+		SELECT y.* FROM(
+		SELECT rownum as rm, x.* FROM (
+		SELECT * FROM
+		admin_data
+		<if test="query != null">
+			<if test="option eq 'nmq'">
+				WHERE admin_name like '%'||#{query}||'%' and bigo2='0'
+			</if>
+			<if test="option eq 'idq'">
+				WHERE admin_id LIKE '%'||#{query}||'%' and bigo2='0'
+			</if>
+		</if>
+		) x
+		) y
+		WHERE y.rm BETWEEN #{page.startRow} AND
+		#{page.endRow}
+	</select>
+	<select id="countuser" parameterType="java.util.Map"
+		resultType="int">
+
+		SELECT count(*) FROM user_data
+		<if test="query != null">
+			<if test="option eq 'nmq'">
+				WHERE user_name like '%'||#{query}||'%' and bigo='0'
+			</if>
+			<if test="option eq 'idq'">
+				WHERE user_id LIKE '%'||#{query}||'%' and bigo='0'
+			</if>
+		</if>
+
+	</select>
+	<select id="countadmin" parameterType="java.util.Map"
+		resultType="int">
+
+		SELECT count(*) FROM
+		admin_data
+		<if test="query != null">
+			<if test="option eq 'nmq'">
+				WHERE admin_name like '%'||#{query}||'%' and bigo2='0'
+			</if>
+			<if test="option eq 'idq'">
+				WHERE admin_id LIKE '%'||#{query}||'%' and bigo2='0'
+			</if>
+		</if>
+
+	</select>
+
+
+	<update id="changePass" parameterType="string">
+		update admin_data set
+		admin_password=#{newpass } where admin_id=#{admin_id}
+	</update>
+	<select id="printBorrow" parameterType="print.dto.PageDTO"
+		resultType="admin.borrow.dto.BorrowDTO">
+
+		SELECT a.* FROM(
+		SELECT rownum as rm, b.*FROM(
+		select x.* ,
+		y.user_id,
+		z.title
+		from user_booklist x, user_data y, booklist z
+		where
+		x.user_keynum=y.user_keynum and x.book_keynum=z.book_keynum
+		ORDER BY
+		x.borrow_keynum desc
+		)b)a
+		WHERE a.rm BETWEEN #{startRow} AND
+		#{endRow}
+	</select>
+
+	<select id="countBorrow" resultType="int">
+		select count(*) from
+		user_booklist
+
+	</select>
+
+
+	<select id="countsearchBorrow" parameterType="java.util.Map"
+		resultType="int">
+		select count(*)
+		from user_booklist x, user_data y,
+		booklist z
+		where
+		x.user_keynum=y.user_keynum and
+		x.book_keynum=z.book_keynum
+		<if test="query != null">
+			<if test="option eq 'title'">
+				and z.title like '%'||#{query}||'%'
+			</if>
+			<if test="option eq 'state'">
+				and x.borrow_state LIKE '%'||#{query}||'%'
+			</if>
+			<if test="option eq 'id'">
+				and y.user_id LIKE '%'||#{query}||'%'
+			</if>
+		</if>
+		order by
+		x.borrow_keynum desc
+
+	</select>
+
+	<select id="printSearchBorrow" parameterType="java.util.Map"
+		resultType="admin.borrow.dto.BorrowDTO">
+
+		SELECT a.* FROM(
+		SELECT rownum as rm, b.*FROM(
+		select x.* ,
+		y.user_id,
+		z.title
+		from user_booklist x, user_data y, booklist z
+		where
+		x.user_keynum=y.user_keynum and
+		x.book_keynum=z.book_keynum
+		<if test="query != null">
+			<if test="option eq 'title'">
+				and z.title like '%'||#{query}||'%'
+			</if>
+			<if test="option eq 'state'">
+				and x.borrow_state LIKE '%'||#{query}||'%'
+			</if>
+			<if test="option eq 'id'">
+				and y.user_id LIKE '%'||#{query}||'%'
+			</if>
+		</if>
+		)b)a
+		WHERE a.rm BETWEEN #{pv.startRow} AND #{pv.endRow}
+	</select>
+	<select id="checkstate" parameterType="string" resultType="int">
+		select count(*)
+		from user_booklist x , user_data y
+		where x.user_keynum =
+		y.user_keynum and y.user_id=#{user_id}
+		and borrow_state !='반납'
+	</select>
+	<select id="countrev" resultType="int">
+		select count(*)
+		from book_review
+	</select>
+	<select id="printRev" parameterType="print.dto.PageDTO"
+		resultType="bookList.dto.BookReviewDTO">
+			<![CDATA[
+		SELECT y.*
+		FROM(SELECT rownum as rm, x.*
+			FROM(SELECT a.*, b.title, c.user_id
+				FROM book_review a, booklist b , user_data c
+				WHERE a.book_keynum = b.book_keynum
+                and c.user_keynum=a.user_keynum
+				)x
+			)y
+		WHERE y.rm BETWEEN #{startRow} AND #{endRow} 
+
+		]]>
+	</select>
+
+	<!-- 후기 삭제 -->
+	<delete id="deleteadminReview" parameterType="int">
+		DELETE FROM
+		BOOK_REVIEW
+		WHERE review_keynum = #{review_keynum}
+	</delete>
+
+
+
+	<select id="SearchReview" parameterType="java.util.Map"
+		resultType="bookList.dto.BookReviewDTO">
+
+		SELECT a.* FROM(
+		SELECT rownum as rm, b.*FROM(
+		select x.* ,
+		y.user_id,
+		z.title
+		from book_review x, user_data y, booklist z
+		where
+		x.user_keynum=y.user_keynum and
+		x.book_keynum=z.book_keynum
+		<if test="query != null">
+			<if test="option eq 'title'">
+				and z.title like '%'||#{query}||'%'
+			</if>
+			<if test="option eq 'id'">
+				and y.user_id LIKE '%'||#{query}||'%'
+			</if>
+			<if test="option eq 'name'">
+				and y.user_name LIKE '%'||#{query}||'%'
+			</if>
+		</if>
+		)b)a
+		WHERE a.rm BETWEEN #{pv.startRow} AND #{pv.endRow}
+	</select>
+
+	<select id="SearchReviewCount" parameterType="java.util.Map"
+		resultType="int">
+		select count(*)
+		from book_review x, user_data y, booklist z
+		where
+		x.user_keynum=y.user_keynum and
+		x.book_keynum=z.book_keynum
+
+		<if test="option eq 'title'">
+			and z.title like '%'||#{query}||'%'
+		</if>
+		<if test="option eq 'id'">
+			and y.user_id LIKE '%'||#{query}||'%'
+		</if>
+		<if test="option eq 'name'">
+			and y.user_name LIKE '%'||#{query}||'%'
+		</if>
+
+
+	</select>
+
+
+
+</mapper>

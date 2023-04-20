@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="print">
+	<select id="printbookAll" parameterType="print.dto.PageDTO"
+		resultType="admin.bookmanage.dto.BookmanageDTO">
+			<![CDATA[
+                SELECT d.*
+        FROM(SELECT rownum as rm, c.*
+            FROM(SELECT a.*, b.avg_rating ,b.countisbn
+                FROM booklist a, (SELECT isbn, AVG(star_num) AS avg_rating, count(star_num) as countisbn
+                                FROM book_review
+                                GROUP BY isbn)b
+                WHERE a.isbn = b.isbn(+))c)d
+		WHERE d.rm BETWEEN #{startRow} AND #{endRow} 
+
+		]]>
+	</select>
+	<select id="count" resultType="int">
+		SELECT count(*) FROM booklist
+	</select>
+	<select id="searchByIsbn" parameterType="string"
+		resultType="string">
+		SELECT title FROM booklist WHERE isbn=#{isbn}
+
+	</select>
+
+	<select id="check" parameterType="string" resultType="int">
+		select
+		count(*) from booklist where title like #{query}||'%'
+	</select>
+
+<select id="search" parameterType="java.util.Map"
+    resultType="admin.bookmanage.dto.BookmanageDTO">
+    SELECT d.*
+    FROM (
+        SELECT rownum as rm, c.*
+        FROM (
+            SELECT a.*, b.avg_rating, b.countisbn
+            FROM booklist a
+            LEFT JOIN (
+                SELECT isbn, AVG(star_num) AS avg_rating, count(star_num) AS countisbn
+                FROM book_review
+                GROUP BY isbn
+            ) b ON a.isbn = b.isbn
+            <if test="cate != null or query != null">
+                WHERE
+                <if test="option eq 'search_title' and query != null">
+                    a.title like '%'||#{query}||'%'
+                </if>
+                <if test="option eq 'search_author' and query != null">
+                    a.author LIKE '%'||#{query}||'%'
+                </if>
+                <if test="option eq 'search_publisher' and query != null">
+                    a.publisher LIKE '%'||#{query}||'%'
+                </if>
+                <if test="option eq 'search_isbn' and query != null">
+                    a.isbn LIKE '%'||#{query}||'%'
+                </if>
+                <if test="cate != null and query == null">
+                    a.category_s LIKE #{cate}||'%'
+                </if>
+                <if test="query == null and cate == null">
+                    1=1
+                </if>
+                <if test="cate != null and query != null">
+                    AND a.category_s LIKE #{cate}||'%'
+                </if>
+            </if>
+        ) c
+        WHERE
+        <if test="page != null">
+            rownum &lt;= #{page.endRow}
+        </if>
+    ) d
+    WHERE
+    <if test="page != null">
+        d.rm &gt;= #{page.startRow}
+    </if>
+</select>
+
+
+
+
+	<select id="searchcount" parameterType="java.util.Map"
+		resultType="int">
+		SELECT COUNT(*) FROM booklist
+		<if test="cate==null and query != null">
+			<if test="option eq 'search_title'">
+				WHERE title like '%'||#{query}||'%'
+			</if>
+			<if test="option eq 'search_author'">
+				WHERE author LIKE '%'||#{query}||'%'
+			</if>
+			<if test="option eq 'search_publisher'">
+				WHERE publisher LIKE '%'||#{query}||'%'
+			</if>
+			<if test="option eq 'search_isbn'">
+				WHERE isbn LIKE '%'||#{query}||'%'
+			</if>
+		</if>
+		<if test="cate != null and query != null">
+			<if test="option eq 'search_title'">
+				WHERE title like '%'||#{query}||'%' AND
+				category_s LIKE
+				#{cate}||'%'
+			</if>
+			<if test="option eq 'search_author'">
+				WHERE author LIKE '%'||#{query}||'%' AND
+				category_s LIKE
+				#{cate}||'%'
+			</if>
+			<if test="option eq 'search_publisher'">
+				WHERE publisher LIKE '%'||#{query}||'%' AND
+				category_s
+				LIKE #{cate}||'%'
+			</if>
+		</if>
+		<if test="cate != null and query == null">
+			WHERE category_s LIKE #{cate}||'%'
+		</if>
+	</select>
+
+
+	<select id="nBook" parameterType="print.dto.PageDTO"
+		resultType="admin.bookmanage.dto.BookmanageDTO">
+
+		
+					<![CDATA[
+                SELECT d.*
+        FROM(SELECT rownum as rm, c.*
+            FROM(SELECT a.*, b.avg_rating ,b.countisbn
+                FROM booklist a, (SELECT isbn, AVG(star_num) AS avg_rating, count(star_num) as countisbn
+                                FROM book_review
+                                GROUP BY isbn)b
+                WHERE a.isbn = b.isbn(+))c
+                WHERE receive_date >= add_months(sysdate, -1)
+								ORDER BY receive_date DESC 
+                )d
+                	
+                				
+		WHERE d.rm BETWEEN #{startRow} AND #{endRow}
+	]]>
+
+	</select>
+
+	<select id="nBookCount" resultType="int">
+		SELECT COUNT(*) FROM BOOKLIST
+		WHERE receive_date >= add_months(sysdate, -1)
+		ORDER BY receive_date
+		DESC
+
+	</select>
+
+	<select id="pBook"
+		resultType="admin.bookmanage.dto.BookmanageDTO">
+		SELECT a.*, b.avg_rating ,b.countisbn ,c.book_keynum
+		FROM
+		booklist a, (SELECT isbn, AVG(star_num) AS avg_rating,
+		count(star_num)
+		as countisbn
+		FROM book_review
+		GROUP BY isbn)b , (
+		SELECT book_keynum,
+		COUNT(*) AS return_count
+		FROM user_booklist
+		WHERE borrow_state = '반납'
+		GROUP BY book_keynum
+		ORDER BY return_count
+		DESC
+		)c
+		WHERE a.isbn =
+		b.isbn(+) and a.book_keynum = c.book_keynum
+		and ROWNUM between 0 and 20
+
+
+	</select>
+	<select id="pBookCount" resultType="int">
+		SELECT count(*)
+		FROM booklist
+		a, (SELECT
+		isbn, AVG(star_num) AS avg_rating,
+		count(star_num) as
+		countisbn
+		FROM
+		book_review
+		GROUP BY isbn)b , (
+		SELECT book_keynum,
+		COUNT(*) AS
+		return_count
+		FROM user_booklist
+		WHERE borrow_state = '반납'
+		GROUP BY
+		book_keynum
+		ORDER BY return_count DESC
+		)c
+		WHERE a.isbn =
+		b.isbn(+) and
+		a.book_keynum = c.book_keynum
+		and ROWNUM between 0 and 20
+
+
+	</select>
+
+</mapper>

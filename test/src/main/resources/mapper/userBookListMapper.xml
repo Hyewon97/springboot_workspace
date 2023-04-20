@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="userBookList">
+ 
+
+	<resultMap type="userBookList.dto.UserBookListDTO" id="rbookList">
+		<result property="borrow_keynum" column="borrow_keynum"/>
+		<result property="book_keynum" column="book_keynum"/>
+		<result property="book_category" column="book_category"/>
+		<result property="user_keynum" column="user_keynum"/>
+		<result property="borrow_date" column="borrow_date"/>
+		<result property="return_date" column="return_date"/>
+		<result property="return_due_date" column="return_due_date"/>
+		<result property="return_extend" column="return_extend"/>
+		<result property="borrow_state" column="borrow_state"/>
+	</resultMap>
+	
+	<!-- 현재 대출/예약중인 도서 목록 -->
+	<select id="currBorrowList" parameterType="string" resultMap="rbookList">
+		SELECT *
+		FROM user_booklist
+		WHERE user_keynum = #{user_keynum} AND RETURN_DATE IS NULL
+		ORDER BY borrow_date DESC
+	</select>
+	
+	<!-- 전체 도서 이력 -->
+ 	<select id="pastBorrowList" parameterType="java.util.Map"
+      resultMap="rbookList">
+      SELECT y.*
+      FROM(SELECT rownum as rm, x.*
+      FROM(SELECT *
+      FROM user_booklist
+      WHERE user_keynum = #{user_keynum} AND
+      borrow_state = '반납'
+      ORDER BY return_date DESC
+
+      )x
+      )y
+      <if test= "pv eq null">
+      WHERE y.rm BETWEEN 0 AND 0
+      </if>
+      <if test="pv != null">
+      WHERE y.rm BETWEEN #{pv.startRow} AND #{pv.endRow}
+      </if>
+      
+   </select>
+   <select id="countall" parameterType="string"
+      resultType="int">
+      SELECT count(*)
+      FROM user_booklist
+      WHERE user_keynum = #{user_keynum} AND
+      borrow_state = '반납'
+
+   </select>
+	<!-- book_keynum별 user_booklist -->
+	<select id="CurrLoanByBk" parameterType="int" resultType="Date">
+		SELECT return_due_date
+		FROM user_booklist
+		WHERE book_keynum = #{book_keynum} AND borrow_state = '대출중'
+	</select>
+	
+	<!-- book_keynum별 booklist -->
+	<select id="bookData" parameterType="int" resultType="bookList.dto.BookListDTO">
+		SELECT *
+		FROM booklist
+		WHERE book_keynum = #{book_keynum}
+	</select>
+	
+	<!-- 입력 적합 검사 -->
+	<select id="checkCount" parameterType="userBookList.dto.UserBookListDTO" resultType="int">
+	  SELECT COUNT(*) FROM user_booklist
+	  WHERE user_keynum = #{user_keynum} AND borrow_state IN ('예약중', '대출중')
+	</select>
+	
+	<!-- 대출 신청 -->
+	
+	
+	<insert id="borrow" parameterType="userBookList.dto.UserBookListDTO">
+		INSERT INTO user_booklist
+			(borrow_keynum, book_keynum, book_category, user_keynum, borrow_date, return_date, return_due_date, return_extend, borrow_state)
+		values
+        	(user_booklist_seq.nextval, #{book_keynum, jdbcType=NUMERIC}, #{book_category,jdbcType=NUMERIC}, #{user_keynum,jdbcType=NUMERIC}, SYSDATE, null, SYSDATE + 14, 'N', '대출중')
+	</insert>
+	
+	<update id="onBorrow" parameterType="userBookList.dto.UserBookListDTO">
+		UPDATE BOOKLIST
+		SET LOAN_STATE = 'N',
+			BORROW_STATE = 'Y'
+			WHERE BOOK_KEYNUM IN (
+			SELECT BOOK_KEYNUM
+			FROM USER_BOOKLIST
+			WHERE book_keynum = #{book_keynum}
+		)
+	</update>
+	
+	<!-- <update id="changestateDto" parameterType="userBookList.dto.UserBookListDTO">
+		UPDATE BOOKLIST
+		SET LOAN_STATE = 
+			CASE
+				WHEN loan_state = 'Y' THEN 'N'
+				WHEN loan_state = 'N' THEN 'Y'
+			END,
+			BORROW_STATE = 
+			CASE
+				WHEN borrow_state = 'Y' THEN 'N'
+				WHEN borrow_state = 'N' THEN 'Y'
+			END
+		WHERE loan_state IN ('Y', 'N') 
+		AND borrow_state IN ('Y', 'N') 
+		AND BOOK_KEYNUM IN (
+			SELECT BOOK_KEYNUM
+			FROM USER_BOOKLIST
+			WHERE book_keynum = #{book_keynum}
+		)
+	</update> -->
+	
+	<!-- 대출 연장 요청 -->
+	<update id="returnExtend" parameterType="int">
+		UPDATE user_booklist
+		SET RETURN_EXTEND = 'Y', RETURN_DUE_DATE = RETURN_DUE_DATE + 7
+		WHERE borrow_keynum = #{borrow_keynum}
+	</update>
+	
+	<update id="returnExtendReserve" parameterType="int">
+		UPDATE USER_BOOKLIST
+		SET borrow_date = borrow_date + 7, return_due_date = return_due_date +7
+		WHERE borrow_keynum IN (
+		  SELECT borrow_keynum
+		  FROM USER_BOOKLIST
+		  WHERE book_keynum = #{book_keynum} AND borrow_state = '예약중'
+		)
+	</update>
+	
+	<!-- 반납 요청 -->
+	<update id="return" parameterType="int">
+		UPDATE user_booklist
+		SET borrow_state = '반납', return_date = SYSDATE
+		WHERE borrow_keynum = #{borrow_keynum}
+	</update>
+	
+	<update id="onReturn" parameterType="int">
+		UPDATE BOOKLIST
+		SET loan_state = 'Y',
+			borrow_state = 'N'
+		WHERE BOOK_KEYNUM IN (
+			SELECT BOOK_KEYNUM
+			FROM USER_BOOKLIST
+			WHERE borrow_keynum = #{borrow_keynum}
+		)
+	</update>
+	
+	<select id="selectBookKeynum" parameterType="int" resultType="int">
+		select book_keynum
+		from user_booklist
+		where borrow_keynum = #{borrow_keynum}
+	</select>
+	
+	<select id="selectReserveExist" parameterType="int" resultType="userBookList.dto.UserBookListDTO">
+		SELECT *
+		FROM user_booklist
+		WHERE book_keynum = #{book_keynum} AND borrow_state = '예약중'
+	</select>
+	
+	<!-- 예약 신청 -->
+	
+	<select id="selectBorrowExist" parameterType="userBookList.dto.UserBookListDTO" resultType="userBookList.dto.UserBookListDTO">
+		SELECT *
+		FROM user_booklist
+		WHERE book_keynum = #{book_keynum} AND borrow_state = '대출중' AND user_keynum = #{user_keynum}
+	</select>
+	
+	<insert id="reserve" parameterType="userBookList.dto.UserBookListDTO">
+		INSERT INTO user_booklist
+			(borrow_keynum, book_keynum, book_category, user_keynum, borrow_date, return_date, return_due_date, return_extend, borrow_state)
+		values
+        	(user_booklist_seq.nextval, #{book_keynum}, #{book_category}, #{user_keynum}, #{borrow_date}, null, #{borrow_date} + 14, 'N', '예약중')
+	</insert>
+	
+	<update id="onReserve" parameterType="userBookList.dto.UserBookListDTO">
+		UPDATE BOOKLIST
+		SET borrow_state = 'N'
+		WHERE book_keynum = #{book_keynum}
+	</update>
+	
+	<!-- 예약 취소 -->
+	<delete id="cancelReserve" parameterType="int">
+		DELETE
+		FROM user_booklist
+		WHERE borrow_keynum = #{borrow_keynum}
+	</delete>
+	
+	<update id="onCancelReserve" parameterType="int">
+		UPDATE BOOKLIST
+		SET borrow_state = 'Y'
+		WHERE BOOK_KEYNUM IN (
+			SELECT BOOK_KEYNUM
+			FROM USER_BOOKLIST
+			WHERE borrow_keynum = #{borrow_keynum}
+		)
+	</update>
+	
+	<select id="bookinfo" resultType="bookList.dto.BookListDTO">
+		SELECT *
+		FROM booklist
+		WHERE book_keynum = 1
+	</select>
+	
+	<!-- 탈퇴한 회원 데이터 처리 -->
+	<update id="withdrawChange">
+		
+	</update>
+	
+	
+	
+	
+   
+ </mapper>   

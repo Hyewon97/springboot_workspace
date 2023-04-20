@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- PrintDaoImp Bean 선언 -->
+<bean id="printDao" class="print.dao.PrintDaoImp">
+	<property name="sqlSession" ref="sqlSession" />
+</bean>
+
+<!-- PrintServiceImp Bean 선언 -->
+<bean id="printService" class="print.service.PrintServiceImp">
+	<property name="printDao" ref="printDao" />
+</bean>
+
+<!-- PrintController Bean 선언 -->
+<bean class="print.controller.PrintController" >
+	<property name="printService" ref="printService" />
+</bean>
+</beans>

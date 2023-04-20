@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- BookmanageDaoImp 빈 선언 -->
+	<bean id="bookmanageDao" class="admin.bookmanage.dao.BookmanageDaoImp">
+		<property name ="sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	<!-- bookmanageServiceImp 빈 선언 -->
+	<bean id="bookmanageService" class="admin.bookmanage.service.BookmanageServiceImp">
+		<property name="bookmanageDao" ref="bookmanageDao" />
+	</bean>
+	
+	<!-- SeojiSearch 빈 선언 -->
+	<bean id="seojiSearch" class="admin.bookmanage.search.SeojiSearch">
+	</bean>
+
+	<!-- controller -->
+	<bean class="admin.bookmanage.controller.BookmanageController">
+		<property name="bookmanageService" ref="bookmanageService"/>
+		<property name="seojiSearch" ref="seojiSearch"></property>
+	</bean>
+
+</beans>

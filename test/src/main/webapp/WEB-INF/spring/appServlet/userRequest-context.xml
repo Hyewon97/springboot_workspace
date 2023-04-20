@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- RequestDaoImp 빈 선언 -->
+	<bean id="userRequestDao" class="user.request.dao.UserRequestDAOImp">
+		<property name ="sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	<!-- requestServiceImp 빈 선언 -->
+	<bean id="userRequestService" class="user.request.service.UserRequestServiceImp">
+		<property name="userRequestDao" ref="userRequestDao" />
+	</bean>
+
+	<!-- controller -->
+	<bean class="user.request.controller.UserRequestController">
+		<property name="userRequestService" ref="userRequestService"/>
+	</bean>
+
+</beans>

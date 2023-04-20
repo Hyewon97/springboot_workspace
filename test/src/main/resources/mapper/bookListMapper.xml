@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bookList">
+
+	<!-- ISBN으로 SELECT -->
+	<select id="isbn" parameterType="String"
+		resultType="bookList.dto.BookListDTO">
+		SELECT * FROM BOOKLIST
+		WHERE book_keynum= #{isbn}
+	</select>
+
+	<!-- 총 후기 수 -->
+	<select id="count" parameterType="string" resultType="int">
+		SELECT
+		count(*) FROM BOOK_REVIEW
+		where book_keynum=#{isbn}
+
+	</select>
+
+	<!-- 출력할 review list SELECT -->
+	<select id="reviewList" parameterType="java.util.Map"
+		resultType="bookList.dto.BookReviewDTO">
+		<![CDATA[ 
+		SELECT y.*
+		FROM(SELECT rownum as rm, x.*
+		FROM (      
+        SELECT x.*, y.user_id
+		FROM book_review x, user_data y
+		WHERE x.user_keynum = y.user_keynum and book_keynum=#{isbn} 
+		ORDER BY y.user_keynum desc
+			)x
+			
+		)y
+		WHERE y.rm>=#{pv.startRow} AND y.rm<=#{pv.endRow}
+		
+		
+
+		]]>
+	</select>
+
+	<!-- 후기 삽입 -->
+	<insert id="addReview" parameterType="java.util.Map">
+		INSERT INTO BOOK_REVIEW
+		(REVIEW_KEYNUM, ISBN, USER_KEYNUM, STAR_NUM, REVIEW_CONTENTS,
+		REVIEW_DATE, BOOK_KEYNUM)
+		VALUES (breview_seq.NEXTVAL,#{dto.isbn,
+		jdbcType=VARCHAR}, #{keynum, jdbcType=VARCHAR},
+		#{dto.star_num},
+		#{dto.review_contents, jdbcType=VARCHAR}, SYSDATE,
+		#{dto.book_keynum})
+	</insert>
+
+	<!-- 후기 수정 -->
+	<update id="updateReview"
+		parameterType="bookList.dto.BookReviewDTO">
+		UPDATE BOOK_REVIEW
+		SET review_contents =
+		#{review_contents}, star_num = #{star_num}
+		WHERE review_keynum =
+		#{review_keynum}
+	</update>
+
+	<!-- 후기 삭제 -->
+	<delete id="deleteReview" parameterType="int">
+		DELETE FROM BOOK_REVIEW
+		WHERE review_Keynum = #{review_Keynum}
+	</delete>
+
+	<!-- user_id와 book_keynum값으로 등록되어 있는 후기가 있는지 확인 -->
+	<select id="revCheck" parameterType="java.util.Map"
+		resultType="int">
+		SELECT count(*)
+		FROM BOOK_REVIEW
+
+		WHERE user_keynum =
+		#{keynum} AND book_keynum = #{book_keynum}
+	</select>
+
+
+
+
+</mapper>

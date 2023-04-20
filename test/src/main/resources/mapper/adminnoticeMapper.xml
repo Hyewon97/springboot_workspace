@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="adminnotice">
+
+	<select id="count" resultType="int">
+		SELECT count(*) FROM NOTICE_BOARD
+	</select>
+
+	<select id="list" parameterType="admin.notice.dto.PageDTO" resultType="admin.notice.dto.NoticeDTO">
+		<![CDATA[
+		SELECT b.*
+		FROM(SELECT rownum as rm, a.*
+		    FROM(SELECT x.*, y.admin_name
+		        FROM NOTICE_BOARD x, admin_data y
+		        WHERE x.admin_keynum = y.admin_keynum
+		        ORDER BY num desc)a)b
+		WHERE b.rm>=#{startRow} AND b.rm<=#{endRow}
+		]]>
+	</select>
+	
+	<select id="searchCount" parameterType="map" resultType="int">
+		SELECT count(*)
+		FROM(SELECT rownum as rm, b.*    
+		    FROM(SELECT a.*  
+				FROM(SELECT x.*, y.admin_id ,y.admin_name
+					FROM NOTICE_BOARD x, admin_data y
+					WHERE x.admin_keynum = y.admin_keynum
+					ORDER BY x.num desc
+		            )a
+		       <if test="searchword != null">
+		         <if test="option eq 'title'">
+		            WHERE a.title like '%'||#{searchword}||'%'
+		         </if>
+		         <if test="option eq 'admin_id'">
+		            WHERE a.admin_id LIKE '%'||#{searchword}||'%'
+		         </if>
+		         <if test="option eq 'admin_name'">
+		            WHERE a.admin_name LIKE '%'||#{searchword}||'%'
+		         </if>
+		      </if>
+		    )b
+		)c
+	</select>
+	
+	<select id="searchList" parameterType="admin.notice.dto.PageDTO" resultType="admin.notice.dto.NoticeDTO">
+		SELECT c.*
+		FROM(SELECT rownum as rm, b.*    
+		    FROM(SELECT a.*  
+				FROM(SELECT x.*, y.admin_id ,y.admin_name
+					FROM NOTICE_BOARD x, admin_data y
+					WHERE x.admin_keynum = y.admin_keynum
+					ORDER BY x.num desc
+		            )a
+		       <if test="searchword != null">
+		         <if test="option eq 'title'">
+		            WHERE a.title like '%'||#{searchword}||'%'
+		         </if>
+		         <if test="option eq 'admin_id'">
+		            WHERE a.admin_id LIKE '%'||#{searchword}||'%'
+		         </if>
+		         <if test="option eq 'admin_name'">
+		            WHERE a.admin_name LIKE '%'||#{searchword}||'%'
+		         </if>
+		      </if>
+		    )b
+		)c
+      WHERE c.rm BETWEEN #{startRow} AND #{endRow}
+	</select>		
+
+	<insert id = "save" parameterType="admin.notice.dto.NoticeDTO">
+		INSERT INTO NOTICE_BOARD (num, fix, title, content, upload_file, upload_img, reg_date, readcount, admin_keynum)
+		VALUES(NOTICE_SEQ.nextval, #{fix, jdbcType=VARCHAR}, #{title},#{content, jdbcType=VARCHAR},#{upload_file, jdbcType=VARCHAR},#{upload_img, jdbcType=VARCHAR},sysdate,0,#{admin_keynum})
+    </insert> 
+
+	<select id="getFile" parameterType="int" resultType="string">
+		SELECT upload_file
+		FROM NOTICE_BOARD
+		WHERE num=#{num}
+	</select>
+	
+	<select id="getImg" parameterType="int" resultType="string">
+		SELECT upload_img
+		FROM NOTICE_BOARD
+		WHERE num=#{num}
+	</select>
+	
+	<update id= "update" parameterType="admin.notice.dto.NoticeDTO">
+		UPDATE NOTICE_BOARD
+		SET title=#{title}, content=#{content}, fix=#{fix, jdbcType=VARCHAR}, admin_keynum=#{admin_keynum}
+		<if test="upload_file!=null">
+			,upload_file=#{upload_file}
+		</if>
+		<if test="upload_img!=null">
+			,upload_img=#{upload_img}
+		</if>		
+		WHERE num=#{num}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM NOTICE_BOARD
+		WHERE num=#{num}
+	</delete>
+	  
+
+</mapper>

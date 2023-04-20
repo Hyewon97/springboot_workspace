@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- NoticeDaoImp 빈 선언 -->
+	<bean id="noticeDao" class="admin.notice.dao.NoticeDaoImp">
+		<property name ="sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	<!-- noticeServiceImp 빈 선언 -->
+	<bean id="noticeService" class="admin.notice.service.NoticeServiceImp">
+		<property name="noticeDao" ref="noticeDao" />
+	</bean>
+
+	<!-- controller -->
+	<bean class="admin.notice.controller.NoticeController">
+		<property name="noticeService" ref="noticeService"/>
+	</bean>
+
+	<!-- 파일 첨부 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="1000000000" />
+	</bean>
+	
+	<!-- 다운로드 뷰 선언 -->
+	<bean id="download" class="admin.notice.view.NoticeDownLoadView">
+		<property name="noticeDao" ref="noticeDao"/>
+	</bean>
+
+</beans>

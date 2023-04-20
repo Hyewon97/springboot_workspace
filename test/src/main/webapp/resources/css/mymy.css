@@ -1,0 +1,205 @@
+@charset "UTF-8";
+/* mymy area */
+
+.subpage_wrap .inner .mymy_area {
+  width: 100%;
+  height: auto;
+  padding: 0 100px;
+  box-sizing: border-box;
+  display: inline-block;
+}
+
+.subpage_wrap .inner .mymy_area > * {
+  float: left;
+}
+
+.subpage_wrap .inner .mymy_area > form {
+  width: 100%;
+  height: auto;
+  margin-bottom: 60px;
+}
+
+.subpage_wrap .inner .mymy_area > form > ul {
+  width: 100%;
+  height: auto;
+}
+
+.subpage_wrap .inner .mymy_area > h2 {
+  background-color: #ebe6dd;
+  width: 100%;
+  height: auto;
+  padding: 20px 30px;
+  box-sizing: border-box;
+  font-family: 'neo_eb';
+  font-size: 24px;
+  color: #635845;
+  text-align: left;
+  border-radius: 10px;
+  margin-bottom: 60px;
+}
+
+.subpage_wrap .inner .mymy_area > h4 {
+  width: 100%;
+  height: auto;
+  padding-bottom: 10px;
+  font-family: 'neo_eb';
+  font-size: 21px;
+  color: #635845;
+  text-align: left;
+  border-bottom: 2px solid #635845;
+  margin-bottom: 20px;
+}
+
+.subpage_wrap .inner .mymy_area ul li {
+  width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+  display: inline-block;
+}
+
+.subpage_wrap .inner .mymy_area ul li > * {
+  float: left;
+}
+
+.subpage_wrap .inner .mymy_area ul li h4 {
+  width: 100%;
+  height: auto;
+  font-family: 'neo_b';
+  font-size: 18px;
+  color: #635845;
+  text-align: left;
+  margin-top: 20px;
+}
+
+.subpage_wrap .inner .mymy_area ul li > input {
+  width: 100%;
+  height: 60px;
+  padding: 15px;
+  box-sizing: border-box;
+  border: 1px solid #bbb;
+  color: #666;
+  font-family: 'neo_b';
+  font-size: 18px;
+}
+
+.subpage_wrap .inner .mymy_area ul li > input:focus {
+  outline: 3px solid #ebe6dd;
+}
+
+.subpage_wrap .inner .mymy_area ul li > input:read-only {
+  background-color: #eee;
+}
+
+.subpage_wrap .inner .mymy_area ul li > button {
+  width: 100%;
+  height: 60px;
+  padding: 15px;
+  box-sizing: border-box;
+  border: 1px solid #635845;
+  color: #635845;
+  font-family: 'neo_b';
+  font-size: 18px;
+}
+
+.subpage_wrap .inner .mymy_area form > p {
+  font-size: 18px;
+  font-family: 'neo_b';
+  color: #999;
+  float: left;
+  margin-bottom: 20px;
+}
+
+.subpage_wrap .inner .mymy_area form > button {
+  width: auto;
+  height: auto;
+  padding: 15px 30px;
+  background-color: #635845;
+  color: #fff;
+  font-family: 'neo_b';
+  font-size: 16px;
+  float: right;
+  border-radius: 5px;
+}
+
+.subpage_wrap .inner .mymy_area > button {
+  width: auto;
+  height: auto;
+  padding: 15px 30px;
+  background-color: #635845;
+  color: #fff;
+  font-family: 'neo_b';
+  font-size: 16px;
+  float: right;
+  border-radius: 5px;
+}
+
+@media (max-width: 700px) {
+  .subpage_wrap .inner .mymy_area {
+    padding: 0;
+  }
+
+  .subpage_wrap .inner .mymy_area > form {
+    width: 100%;
+    height: auto;
+    margin-bottom: 30px;
+  }
+
+  .subpage_wrap .inner .mymy_area > h2 {
+    padding: 15px;
+    font-size: 16px;
+    margin-bottom: 30px;
+  }
+
+  .subpage_wrap .inner .mymy_area > h4 {
+    padding-bottom: 10px;
+    font-size: 16px;
+    color: #635845;
+    margin-bottom: 10px;
+  }
+
+  .subpage_wrap .inner .mymy_area ul li {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+
+  .subpage_wrap .inner .mymy_area ul li h4 {
+    margin-top: 10px;
+    font-size: 16px;
+  }
+
+  .subpage_wrap .inner .mymy_area ul li > input {
+    height: 40px;
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .subpage_wrap .inner .mymy_area ul li > button {
+    width: 100%;
+    height: 40px;
+    padding: 0;
+    box-sizing: border-box;
+    border: 1px solid #635845;
+    color: #635845;
+    font-family: 'neo_b';
+    font-size: 16px;
+  }
+
+  .subpage_wrap .inner .mymy_area form > p {
+    font-size: 16px;
+    font-family: 'neo_b';
+    color: #999;
+  }
+
+  .subpage_wrap .inner .mymy_area form > button {
+    width: auto;
+    height: auto;
+    padding: 15px 30px;
+    background-color: #635845;
+    color: #fff;
+    font-family: 'neo_b';
+    font-size: 16px;
+    float: right;
+  }
+}

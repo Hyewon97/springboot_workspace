@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="map">
+    <select id="getAddress"  parameterType="string"  resultType="string">
+       SELECT user_address FROM user_data
+       WHERE user_id = #{user_id}
+       AND bigo = '0'
+    </select>
+ </mapper>   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

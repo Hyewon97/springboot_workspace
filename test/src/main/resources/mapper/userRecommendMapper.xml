@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="userRecommend">
+
+	<select id="userInfo" parameterType="String" resultType="user.my.recommend.dto.UserRecommendDTO">
+	  	SELECT user_name, user_sex, user_age
+		FROM user_data
+		WHERE user_keynum = #{user_keynum}
+	</select>
+
+	<select id="borrowCount" parameterType="String" resultType="int">
+	  	SELECT count(*)
+		FROM user_booklist
+		WHERE user_keynum = #{user_keynum}
+		AND borrow_state = '반납'
+		AND ROWNUM = 1
+	</select>
+
+	<select id="lastBook" parameterType="String" resultType="user.my.recommend.dto.UserRecommendDTO">
+		SELECT isbn, title
+		FROM booklist
+		WHERE book_keynum = (SELECT b.book_keynum
+		                        FROM(SELECT rownum as rm, a.*
+		                            FROM(SELECT book_keynum
+		                                FROM user_booklist
+		                                WHERE user_keynum = #{user_keynum}
+		                                AND borrow_state = '반납'
+		                                ORDER BY return_date desc
+		                                )a
+		                     		)b
+		                     	WHERE b.rm =1)
+	</select>
+	
+<select id="bookInfo" parameterType="java.util.Map" resultType="user.my.recommend.dto.BookmanageDTO">
+       SELECT b.*
+       FROM(SELECT rownum as rm, a.*    
+            FROM(SELECT *
+                FROM booklist
+                WHERE book_keynum NOT IN (SELECT book_keynum
+                                            FROM user_booklist
+                                            WHERE user_keynum = #{user_keynum}
+                                            AND (borrow_state = '대출중' or borrow_state='반납'))
+               )a
+            WHERE a.isbn = #{isbn}
+            )b
+        WHERE b.rm = 1
+   </select>
+
+</mapper>

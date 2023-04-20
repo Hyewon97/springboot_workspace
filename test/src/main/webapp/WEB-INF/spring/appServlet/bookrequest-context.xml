@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- BookrequestDaoImp 빈 선언 -->
+	<bean id="bookrequestDao" class="admin.bookrequest.dao.BookRequestDaoImp">
+		<property name ="sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	<!-- bookrequestServiceImp 빈 선언 -->
+	<bean id="bookrequestService" class="admin.bookrequest.service.BookRequestServiceImp">
+		<property name="bookrequestDao" ref="bookrequestDao" />
+		<property name="bookmanageDao" ref="bookmanageDao" />
+	</bean>
+
+
+	<!-- controller -->
+	<bean class="admin.bookrequest.controller.BookRequestController">
+		<property name="bookrequestService" ref="bookrequestService"/>
+		<property name="bookmanageService" ref="bookmanageService"/>
+		<property name="seojiSearch" ref="seojiSearch"></property>
+	</bean>
+
+</beans>
