@@ -11,4 +11,7 @@ public interface AdminzService {
 	public AdminzDTO updateAdminProcess(String adminEmail);
 	public AuthInfo updateAdminProcess(AdminzDTO dto);
 	public void updatePassProcess(String email, ChangePwdCommand changePwd);
+	
+	public void withdrawProcess(String adminEmail);
+	
 }

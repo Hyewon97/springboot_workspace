@@ -66,6 +66,12 @@ public class AdminzServiceImp implements AdminzService{
 		
 	}
 
+	@Override
+	public void withdrawProcess(String adminEmail) {
+		AdminzDao.withdrawAdmin(adminEmail);
+		
+	}
+
 }
 
 

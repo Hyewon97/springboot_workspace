@@ -23,7 +23,7 @@
 	<!-- 관리자 정보 수정 -->
 	<update id="updateAdmin" parameterType="AdminzDTO">
 		UPDATE adminz
-		SET adminPass=#{adminPass}, adminProfile=#{adminProfile}, 
+		SET adminPass=#{adminPass}, adminProfile=#{adminProfile}
 		WHERE adminEmail=#{adminEmail}
 	</update>
 	
@@ -33,6 +33,13 @@
 	UPDATE adminz SET adminPass=#{adminPass}
 	WHERE adminEmail=#{adminEmail}
 	</update>
+	
+	<!-- 관리자 탈퇴  -->
+	<delete id="withdrawAdmin" parameterType="string">
+		DELETE FROM adminz
+		where adminEmail =#{adminEmail}
+	</delete>
+	
 	
 	
 </mapper>

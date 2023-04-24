@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,7 +51,7 @@ public class AdminzController {
 	}
 
 	// 관리자 정보 가져오기
-	@GetMapping("/admin/editinfo/{adminEmail}")
+	@GetMapping("/admin/update/{adminEmail}")
 	public AdminzDTO getAdmin(@PathVariable("adminEmail") String adminEmail) {
 		return adminzService.updateAdminProcess(adminEmail);
 	}
@@ -60,6 +61,12 @@ public class AdminzController {
 	public void updateAdmin(@RequestBody AdminzDTO adminzDTO) {
 		adminzDTO.setAdminPass(encodePassword.encode(adminzDTO.getAdminPass()));
 		adminzService.updateAdminProcess(adminzDTO);
+	}
+	
+	// 관리자 탈퇴
+	@DeleteMapping("/admin/withdraw/{adminEmail}")
+	public void withdrawExecute(@PathVariable("adminEmail") String adminEmail) {
+		adminzService.withdrawProcess(adminEmail);
 	}
 
 }
