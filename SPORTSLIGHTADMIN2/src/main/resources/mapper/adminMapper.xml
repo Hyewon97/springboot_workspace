@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sportslightadmin.adminz.dao.AdminzDAO">
+
+	<!-- 관리자 회원가입 -->
+	<insert id="insertAdmin" parameterType="AdminzDTO">
+		<![CDATA[
+		INSERT INTO adminz(adminNum, adminEmail, adminPass, adminProfile)
+		VALUES(adminzSEQ.nextval,#{adminEmail},#{adminPass},#{adminProfile})
+		]]>
+	</insert>
+	
+	
+	<!-- 관리자 정보 가져오기-->
+	<select id="selectByEmail" parameterType="string" resultType="AdminzDTO">
+		SELECT * FROM adminz
+		WHERE adminEmail = #{adminEmail} 
+	</select>
+	
+	<!-- 관리자 정보 수정 -->
+	<update id="updateAdmin" parameterType="AdminzDTO">
+		UPDATE adminz
+		SET adminPass=#{adminPass}, adminProfile=#{adminProfile}
+		WHERE adminEmail=#{adminEmail}
+	</update>
+	
+	
+	<!-- 관리자 비밀번호 변경 -->
+	<update id="updateByPass" parameterType="AdminzDTO">
+	UPDATE adminz SET adminPass=#{adminPass}
+	WHERE adminEmail=#{adminEmail}
+	</update>
+	
+	<!-- 관리자 탈퇴  -->
+	<delete id="withdrawAdmin" parameterType="string">
+		DELETE FROM adminz
+		where adminEmail =#{adminEmail}
+	</delete>
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
